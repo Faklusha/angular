@@ -1,0 +1,20 @@
+.options {
+  padding: 10px;
+  border-top: 1px solid gray;
+  align-items: center;
+  display: flex;
+}
+
+.options__search {
+  flex-grow: 1;
+}
+
+.options__button {
+  border: 1px solid black;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.options__button:hover {
+  color: red;
+}

@@ -1,0 +1,15 @@
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo__image {
+  width: 20px;
+  height: 20px;
+  background-color: red;
+  border-radius: 20px;
+}
+
+.logo__title {
+  margin: 0 5px;
+}

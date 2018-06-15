@@ -1,0 +1,20 @@
+.search {
+  display: flex;
+}
+
+.search__button {
+  border: 1px solid black;
+  cursor: pointer;
+  padding: 5px;
+  margin: 0 5px;
+}
+
+.search__button:hover {
+  color: red;
+}
+
+.search__input {
+  width: 50%;
+  border: 1px solid black;
+}
+
