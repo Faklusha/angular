@@ -22,6 +22,7 @@
   flex-grow: 1;
   text-align: left;
   margin-bottom: 5px;
+  color: red;
 }
 
 .item__description_text {
