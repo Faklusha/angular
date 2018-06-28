@@ -1,25 +1,29 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FooterComponent } from './footer.component';
+import {By} from '@angular/platform-browser';
+import {DebugElement} from '@angular/core';
 
 describe('FooterComponent', () => {
-  let component: FooterComponent;
+  let sut: FooterComponent;
   let fixture: ComponentFixture<FooterComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ FooterComponent ]
-    })
-    .compileComponents();
-  }));
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            declarations: [FooterComponent]
+        });
+    });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(FooterComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(FooterComponent); // abstraction used for test
+        sut = fixture.componentInstance;
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should show correct title', () => {
+        fixture.detectChanges();
+        const debugElement: DebugElement = fixture.debugElement;
+        const footerDebugElement = debugElement.query(By.css('.footer'));
+        const footer = footerDebugElement.nativeElement;
+        expect(footer.textContent).toBe('Copyright @ Videocources, All Rights Reserved');
+    });
 });

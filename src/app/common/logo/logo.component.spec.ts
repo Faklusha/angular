@@ -1,25 +1,29 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LogoComponent } from './logo.component';
+import {By} from '@angular/platform-browser';
+import {DebugElement} from '@angular/core';
 
 describe('LogoComponent', () => {
-  let component: LogoComponent;
+  let sut: LogoComponent;
   let fixture: ComponentFixture<LogoComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ LogoComponent ]
-    })
-    .compileComponents();
-  }));
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            declarations: [LogoComponent]
+        });
+    });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(LogoComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(LogoComponent); // abstraction used for test
+        sut = fixture.componentInstance;
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should show correct title', () => {
+        fixture.detectChanges();
+        const debugElement: DebugElement = fixture.debugElement;
+        const logoDebugElement = debugElement.query(By.css('.logo__title'));
+        const logo = logoDebugElement.nativeElement;
+        expect(logo.textContent).toBe('Logo');
+    });
 });

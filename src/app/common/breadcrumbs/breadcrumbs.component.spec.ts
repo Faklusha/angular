@@ -1,25 +1,28 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { BreadcrumbsComponent } from './breadcrumbs.component';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {DebugElement} from '@angular/core';
+import {BreadcrumbsComponent} from './breadcrumbs.component';
+import { By } from '@angular/platform-browser';
 
 describe('BreadcrumbsComponent', () => {
-  let component: BreadcrumbsComponent;
-  let fixture: ComponentFixture<BreadcrumbsComponent>;
+    let sut: BreadcrumbsComponent;
+    let fixture: ComponentFixture<BreadcrumbsComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ BreadcrumbsComponent ]
-    })
-    .compileComponents();
-  }));
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            declarations: [BreadcrumbsComponent]
+        });
+    });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(BreadcrumbsComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(BreadcrumbsComponent); // abstraction used for test
+        sut = fixture.componentInstance;
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+        it('should show correct title', () => {
+            fixture.detectChanges();
+            const debugElement: DebugElement = fixture.debugElement;
+            const breadcrumbsDebugElement = debugElement.query(By.css('.breadcrumbs'));
+            const breadcrumbs = breadcrumbsDebugElement.nativeElement;
+            expect(breadcrumbs.textContent).toBe('Courses');
+    });
 });
