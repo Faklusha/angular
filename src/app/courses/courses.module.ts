@@ -9,7 +9,6 @@ import { CoursesPageComponent } from '../pages/coursesPage/coursesPage.component
 import { LogoComponent } from '../common/logo/logo.component';
 import { CoursesSearchComponent } from './coursesSearch/coursesSearch.component';
 import { CourseItemComponent } from './courseItem/courseItem.component';
-import { UsersComponent } from '../common/users/users.component';
 import { HeaderComponent } from '../common/header/header.component';
 import { CoursesOptionsComponent } from './coursesOptions/coursesOptions.component';
 
@@ -28,8 +27,7 @@ import { CoursesOptionsComponent } from './coursesOptions/coursesOptions.compone
     CoursesListComponent,
     CoursesContentComponent,
     CourseItemComponent,
-    FooterComponent,
-    UsersComponent
+    FooterComponent
   ],
   exports: [
     AppComponent,
@@ -42,8 +40,7 @@ import { CoursesOptionsComponent } from './coursesOptions/coursesOptions.compone
     CoursesListComponent,
     CoursesContentComponent,
     CourseItemComponent,
-    FooterComponent,
-    UsersComponent
+    FooterComponent
     ]
 })
 export class CoursesModule { }

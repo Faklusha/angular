@@ -1,25 +1,42 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {CoursesSearchComponent} from './coursesSearch.component';
+import {CoursesOptionsComponent} from '../coursesOptions/coursesOptions.component';
+import {DebugElement} from '@angular/core';
+import {By} from '@angular/platform-browser';
 
 describe('CoursesSearchComponent', () => {
-  let component: CoursesSearchComponent;
-  let fixture: ComponentFixture<CoursesSearchComponent>;
+    let sut: CoursesSearchComponent;
+    let fixture: ComponentFixture<CoursesSearchComponent>;
+    let searchSpy;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ CoursesSearchComponent ]
-    })
-    .compileComponents();
-  }));
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            declarations: [CoursesSearchComponent]
+        });
+    });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(CoursesSearchComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        searchSpy = jasmine.createSpy('onSearchClick');
+        fixture = TestBed.createComponent(CoursesSearchComponent); // abstraction used for test
+        sut = fixture.componentInstance;
+        sut.onSearchClick = searchSpy;
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should show correct button title', () => {
+        fixture.detectChanges();
+        const debugElement: DebugElement = fixture.debugElement;
+        const buttonDebugElement = debugElement.query(By.css('.search__button'));
+        const button = buttonDebugElement.nativeElement;
+        expect(button.textContent).toBe('Search');
+    });
+
+    it('should call on search click', () => {
+        fixture.detectChanges();
+        const debugElement: DebugElement = fixture.debugElement;
+        debugElement
+            .query(By.css('.search__button'))
+            .triggerEventHandler('click', null);
+        expect(searchSpy).toHaveBeenCalled();
+    });
 });
