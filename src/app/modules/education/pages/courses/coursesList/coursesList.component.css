@@ -1,0 +1,58 @@
+.list {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.list__button {
+    border: 1px solid black;
+    cursor: pointer;
+    padding: 5px;
+    margin-bottom: 5px;
+}
+
+.list__button:hover {
+    color: red;
+}
+
+.options {
+    padding: 10px;
+    border-top: 1px solid gray;
+    align-items: center;
+    display: flex;
+}
+
+.options__search {
+    flex-grow: 1;
+}
+
+.options__button {
+    border: 1px solid black;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.options__button:hover {
+    color: red;
+}
+
+.search {
+    display: flex;
+}
+
+.search__button {
+    border: 1px solid black;
+    cursor: pointer;
+    padding: 5px;
+    margin: 0 5px;
+}
+
+.search__button:hover {
+    color: red;
+}
+
+.search__input {
+    width: 50%;
+    border: 1px solid black;
+}
+

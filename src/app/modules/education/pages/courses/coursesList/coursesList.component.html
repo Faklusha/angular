@@ -1,0 +1,11 @@
+<div class="options">
+    <div class="options__search search">
+        <input #searchInput class="search__input"/>
+        <div (click)="onSearchClick(searchInput.value)" class="search__button">Search</div>
+    </div>
+    <div class="options__button">Add course</div>
+</div>
+<div class="page_full list">
+    <app-item *ngFor="let course of courses" [item]="course" [removeItem]="removeItem"></app-item>
+    <div class="list__button" (click)="onLoadClick()">LOAD MORE</div>
+</div>
