@@ -1,13 +1,13 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { CourseItemComponent } from './courseItem.component';
+import {CourseItemComponent} from './courseItem.component';
 import {DebugElement} from '@angular/core';
 import {By} from '@angular/platform-browser';
 import {CourseItem} from './courseItem.model';
 
 describe('CourseItemComponent', () => {
-  let sut: CourseItemComponent;
-  let fixture: ComponentFixture<CourseItemComponent>;
+    let sut: CourseItemComponent;
+    let fixture: ComponentFixture<CourseItemComponent>;
     let item: CourseItem;
     let deleteSpy;
 
@@ -21,7 +21,7 @@ describe('CourseItemComponent', () => {
         item = new CourseItem();
 
         item.id = '1';
-        item.title =  'Title';
+        item.title = 'Title';
         item.creationDate = '16.08.2015';
         item.duration = '105';
         item.description = 'Description';
