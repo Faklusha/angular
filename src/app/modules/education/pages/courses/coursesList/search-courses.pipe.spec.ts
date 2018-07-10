@@ -4,17 +4,15 @@ import {CoursesListComponent} from './coursesList.component';
 import {DebugElement} from '@angular/core';
 import {By} from '@angular/platform-browser';
 import {CourseItemComponent} from '../courseItem/courseItem.component';
-import {SearchCoursesPipe} from './search-courses.pipe';
 import {HideDirective} from './hide.directive';
+import {SearchCoursesPipe} from './search-courses.pipe';
 import {CreationDateOrderPipe} from './creation-date-order.pipe';
 import {StyleByDateDirective} from '../courseItem/style-by-date.directive';
 import {DurationPipe} from '../courseItem/duration.pipe';
 
-describe('CoursesListComponent', () => {
+describe('Derective: Search', () => {
     let sut: CoursesListComponent;
     let fixture: ComponentFixture<CoursesListComponent>;
-    let loadSpy;
-    let searchSpy;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -34,44 +32,25 @@ describe('CoursesListComponent', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(CoursesListComponent); // abstraction used for test
         sut = fixture.componentInstance;
-        loadSpy = jasmine.createSpy('onLoadClick');
-        sut.onLoadClick = loadSpy;
-
-        searchSpy = jasmine.createSpy('onSearchClick');
-        sut.onSearchClick = searchSpy;
     });
 
-    it('should call spy on load click', () => {
-        fixture.detectChanges();
+    it('should return no courses', () => {
         const debugElement: DebugElement = fixture.debugElement;
-        debugElement
-            .query(By.css('.list__button'))
+        const input = debugElement.query(By.css('.search__input')).nativeElement;
+        input.value = 'unexpected name';
+        fixture.detectChanges();
+        debugElement.query(By.css('.search__button'))
             .triggerEventHandler('click', null);
-        expect(loadSpy).toHaveBeenCalled();
+        expect(sut.courses.length).toBe(0);
     });
 
-    it('should show correct add button title', () => {
-        fixture.detectChanges();
+    it('should return one course', () => {
         const debugElement: DebugElement = fixture.debugElement;
-        const buttonDebugElement = debugElement.query(By.css('.options__button'));
-        const button = buttonDebugElement.nativeElement;
-        expect(button.textContent).toBe('Add course');
-    });
-
-    it('should show correct search button title', () => {
+        const input = debugElement.query(By.css('.search__input')).nativeElement;
+        input.value = '1';
         fixture.detectChanges();
-        const debugElement: DebugElement = fixture.debugElement;
-        const buttonDebugElement = debugElement.query(By.css('.search__button'));
-        const button = buttonDebugElement.nativeElement;
-        expect(button.textContent).toBe('Search');
-    });
-
-    it('should call on search click', () => {
-        fixture.detectChanges();
-        const debugElement: DebugElement = fixture.debugElement;
-        debugElement
-            .query(By.css('.search__button'))
+        debugElement.query(By.css('.search__button'))
             .triggerEventHandler('click', null);
-        expect(searchSpy).toHaveBeenCalled();
+        expect(sut.courses.length).toBe(1);
     });
 });

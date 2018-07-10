@@ -1,16 +1,17 @@
-<div class="item">
-  <div class="item__description">
-    <div class="item__description_title">
-      <span class="item__description_name">{{item.title}}</span>
-      <span class="item__description_text">{{item.duration}}</span>
-      <span class="item__description_text">{{item.creationDate}}</span>
+<div [appStyleByDate]="item.creationDate" ngClass="{{item.topRated ? 'item_rated' : 'item'}}">
+    <div class="item__description">
+        <div class="item__description_title">
+            <span *appHide="item.topRated" class="item__description_sign">*</span>
+            <span class="item__description_name">{{item.title | uppercase }}</span>
+            <span class="item__description_text">{{item.duration | duration}}</span>
+            <span class="item__description_text">{{item.creationDate | date:'dd.MM.yyyy'}}</span>
+        </div>
+        <div class="item__description_overview">
+            <span class="item__description_text">{{item.description}}</span>
+        </div>
     </div>
-    <div class="item__description_overview">
-     <span class="item__description_text">{{item.description}}</span>
+    <div class="item__buttons">
+        <div class="item__button">Edit</div>
+        <div class="item__button" (click)="onDeleteClick(item.id)">Delete</div>
     </div>
-  </div>
-  <div class="item__buttons">
-    <div class="item__button">Edit</div>
-    <div class="item__button" (click)="onDeleteClick(item.id)">Delete</div>
-  </div>
 </div>

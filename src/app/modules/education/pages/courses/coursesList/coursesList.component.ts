@@ -1,15 +1,18 @@
 import {Component, OnInit} from '@angular/core';
 import {CoursesListService} from './coursesList.service';
+import {SearchCoursesPipe} from './search-courses.pipe';
 
 @Component({
     selector: 'app-courses',
     templateUrl: './coursesList.component.html',
-    styleUrls: ['./coursesList.component.css']
+    styleUrls: ['./coursesList.component.css'],
+    providers: [SearchCoursesPipe]
 })
 export class CoursesListComponent implements OnInit {
     public courses;
+    public allCourses;
 
-    constructor(private coursesListService: CoursesListService) {
+    constructor(private coursesListService: CoursesListService, private searchCourses: SearchCoursesPipe) {
         this.courses = [];
     }
 
@@ -19,7 +22,8 @@ export class CoursesListComponent implements OnInit {
 
     ngOnInit() {
         console.log('ngOnInit');
-        this.courses = this.coursesListService.getCourses();
+        this.allCourses = this.coursesListService.getCourses();
+        this.courses = this.allCourses;
     }
 
     ngDoCheck() {
@@ -55,6 +59,9 @@ export class CoursesListComponent implements OnInit {
     }
 
     onSearchClick(value: string) {
-        console.log(value);
+        if (!value) {
+            this.courses = this.allCourses;
+        }
+        this.courses = this.searchCourses.transform(this.allCourses, value);
     }
 }

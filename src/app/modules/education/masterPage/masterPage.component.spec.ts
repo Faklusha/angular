@@ -7,6 +7,11 @@ import {CourseItemComponent} from '../pages/courses/courseItem/courseItem.compon
 import {CoursesListComponent} from '../pages/courses/coursesList/coursesList.component';
 import {HeaderComponent} from '../general/header/header.component';
 import {AuthenticationService} from '../services/authentication.service';
+import {SearchCoursesPipe} from '../pages/courses/coursesList/search-courses.pipe';
+import {StyleByDateDirective} from '../pages/courses/courseItem/style-by-date.directive';
+import {HideDirective} from '../pages/courses/coursesList/hide.directive';
+import {CreationDateOrderPipe} from '../pages/courses/coursesList/creation-date-order.pipe';
+import {DurationPipe} from '../pages/courses/courseItem/duration.pipe';
 
 describe('CoursesPage', () => {
     let sut: MasterPageComponent;
@@ -21,7 +26,14 @@ describe('CoursesPage', () => {
                 BreadcrumbsComponent,
                 CoursesListComponent,
                 CourseItemComponent,
-                FooterComponent]
+                FooterComponent,
+                HideDirective,
+                SearchCoursesPipe,
+                CreationDateOrderPipe,
+                StyleByDateDirective,
+                HideDirective,
+                DurationPipe
+            ]
         }).compileComponents();
     }));
 

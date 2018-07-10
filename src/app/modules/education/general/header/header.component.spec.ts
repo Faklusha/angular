@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HeaderComponent } from './header.component';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
-import { User } from '../users/users.model';
+import { User } from '../../services/users.model';
 import { LogoComponent } from '../logo/logo.component';
 
 describe('HeaderComponent', () => {

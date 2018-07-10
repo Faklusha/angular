@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { User } from '../users/users.model';
+import { User } from '../../services/users.model';
 
 @Component({
   selector: 'app-header',

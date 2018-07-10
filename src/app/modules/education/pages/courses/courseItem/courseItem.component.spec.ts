@@ -4,6 +4,9 @@ import {CourseItemComponent} from './courseItem.component';
 import {DebugElement} from '@angular/core';
 import {By} from '@angular/platform-browser';
 import {CourseItem} from './courseItem.model';
+import {StyleByDateDirective} from './style-by-date.directive';
+import {HideDirective} from '../coursesList/hide.directive';
+import {DurationPipe} from './duration.pipe';
 
 describe('CourseItemComponent', () => {
     let sut: CourseItemComponent;
@@ -13,7 +16,12 @@ describe('CourseItemComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [CourseItemComponent]
+            declarations: [
+                CourseItemComponent,
+                StyleByDateDirective,
+                HideDirective,
+                DurationPipe
+            ]
         });
     });
 
@@ -22,7 +30,7 @@ describe('CourseItemComponent', () => {
 
         item.id = '1';
         item.title = 'Title';
-        item.creationDate = '16.08.2015';
+        item.creationDate = 'July 7 2018';
         item.duration = '105';
         item.description = 'Description';
         deleteSpy = jasmine.createSpy('removeItem');
@@ -41,21 +49,15 @@ describe('CourseItemComponent', () => {
         const debugElement: DebugElement = fixture.debugElement;
         const titleDebugElement = debugElement.query(By.css('.item__description_name'));
         const title = titleDebugElement.nativeElement;
-        expect(title.textContent).toBe('Title');
+        expect(title.textContent).toBe('TITLE');
     });
-    it('should show correct duration', () => {
-        fixture.detectChanges();
-        const debugElement: DebugElement = fixture.debugElement;
-        const durationDebugElement = debugElement.queryAll(By.css('.item__description_text'))[0];
-        const duration = durationDebugElement.nativeElement;
-        expect(duration.textContent).toBe('105');
-    });
+
     it('should show correct creationDate', () => {
         fixture.detectChanges();
         const debugElement: DebugElement = fixture.debugElement;
         const creationDateDebugElement = debugElement.queryAll(By.css('.item__description_text'))[1];
         const creationDate = creationDateDebugElement.nativeElement;
-        expect(creationDate.textContent).toBe('16.08.2015');
+        expect(creationDate.textContent).toBe('07.07.2018');
     });
     it('should show correct description', () => {
         fixture.detectChanges();
@@ -88,5 +90,75 @@ describe('CourseItemComponent', () => {
             .queryAll(By.css('.item__button'))[1]
             .triggerEventHandler('click', null);
         expect(deleteSpy).toHaveBeenCalled();
+    });
+
+    it('should have green border', () => {
+        fixture.detectChanges();
+        const debugElement: DebugElement = fixture.debugElement;
+        debugElement
+            .queryAll(By.css('.item__button'))[1]
+            .triggerEventHandler('click', null);
+        expect(deleteSpy).toHaveBeenCalled();
+    });
+
+    it('should have blue border', () => {
+        fixture.detectChanges();
+        const debugElement: DebugElement = fixture.debugElement;
+        debugElement
+            .queryAll(By.css('.item__button'))[1]
+            .triggerEventHandler('click', null);
+        expect(deleteSpy).toHaveBeenCalled();
+    });
+
+    it('should render rated course', () => {
+        item = new CourseItem();
+        item.id = '1';
+        item.title = 'Title';
+        item.creationDate = 'July 17 2020';
+        item.duration = '85';
+        item.description = 'Description';
+        item.topRated = true;
+        fixture = TestBed.createComponent(CourseItemComponent);
+        sut = fixture.componentInstance;
+        sut.item = item;
+        fixture.detectChanges();
+        const debugElement: DebugElement = fixture.debugElement;
+        const element = debugElement.query(By.css('.item'));
+        const ratedElement = debugElement.query(By.css('.item_rated'));
+        expect(element).toBeNull();
+        expect(ratedElement.nativeElement).toBeDefined();
+    });
+
+    it('should render not rated course', () => {
+        fixture.detectChanges();
+        const debugElement: DebugElement = fixture.debugElement;
+        const element = debugElement.query(By.css('.item'));
+        const ratedElement = debugElement.query(By.css('.item_rated'));
+        expect(element.nativeElement).toBeDefined();
+        expect(ratedElement).toBeNull();
+    });
+
+    it('should render rated sign', () => {
+        item = new CourseItem();
+        item.id = '1';
+        item.title = 'Title';
+        item.creationDate = 'July 17 2020';
+        item.duration = '85';
+        item.description = 'Description';
+        item.topRated = true;
+        fixture = TestBed.createComponent(CourseItemComponent);
+        sut = fixture.componentInstance;
+        sut.item = item;
+        fixture.detectChanges();
+        const debugElement: DebugElement = fixture.debugElement;
+        const element = debugElement.query(By.css('.item__description_sign'));
+        expect(element.nativeElement).toBeDefined();
+    });
+
+    it('should render not rated sign', () => {
+        fixture.detectChanges();
+        const debugElement: DebugElement = fixture.debugElement;
+        const element = debugElement.query(By.css('.item__description_sign'));
+        expect(element).toBeNull();
     });
 });
