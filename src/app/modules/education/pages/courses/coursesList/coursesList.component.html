@@ -7,6 +7,6 @@
 </div>
 <div class="page_full list">
     <app-item *ngFor="let course of courses | creationDateOrder" [item]="course" [removeItem]="removeItem"></app-item>
-    <div *appHide="courses.length === 0" class="list__button">No data ): Feel free to add new course</div>
-    <div *appHide="courses.length !== 0" class="list__button" (click)="onLoadClick()">LOAD MORE</div>
+    <div *ngIf="courses.length === 0" class="list__button">No data ): Feel free to add new course</div>
+    <div *ngIf="courses.length !== 0" class="list__button" (click)="onLoadClick()">LOAD MORE</div>
 </div>

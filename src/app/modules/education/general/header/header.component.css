@@ -1,25 +1,25 @@
 .header {
-  padding: 10px;
-  border-bottom: 1px solid black;
-  align-items: center;
-  display: flex;
+    padding: 10px;
+    border-bottom: 1px solid black;
+    align-items: center;
+    display: flex;
 }
 
 .header__logo {
-  flex-grow: 1;
+    flex-grow: 1;
 }
 
 .header__button {
-  border: 1px solid black;
-  cursor: pointer;
-  padding: 5px;
+    border: 1px solid black;
+    cursor: pointer;
+    padding: 5px;
 }
 
 .header__button:hover {
-  color: red;
+    color: red;
 }
 
 .header__name {
-  color: red;
-  margin: 0 10px;
+    color: red;
+    margin: 0 10px;
 }

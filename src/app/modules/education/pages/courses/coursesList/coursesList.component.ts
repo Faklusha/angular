@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {CoursesListService} from './coursesList.service';
-import {SearchCoursesPipe} from './search-courses.pipe';
+import {SearchCoursesPipe} from '../../../pipes/search-courses.pipe';
 
 @Component({
     selector: 'app-courses',
@@ -10,10 +10,8 @@ import {SearchCoursesPipe} from './search-courses.pipe';
 })
 export class CoursesListComponent implements OnInit {
     public courses;
-    public allCourses;
 
     constructor(private coursesListService: CoursesListService, private searchCourses: SearchCoursesPipe) {
-        this.courses = [];
     }
 
     ngOnChanges() {
@@ -22,8 +20,7 @@ export class CoursesListComponent implements OnInit {
 
     ngOnInit() {
         console.log('ngOnInit');
-        this.allCourses = this.coursesListService.getCourses();
-        this.courses = this.allCourses;
+        this.courses = this.coursesListService.getList();
     }
 
     ngDoCheck() {
@@ -50,18 +47,18 @@ export class CoursesListComponent implements OnInit {
         console.log('ngOnDestroy');
     }
 
-    removeItem(id: string) {
-        console.log(id);
-    }
+    removeItem = (id: string) => {
+        this.courses = (this.coursesListService.removeCourse(id));
+    };
 
     onLoadClick() {
         console.log('load');
     }
 
-    onSearchClick(value: string) {
+    onSearchClick = (value: string) => {
         if (!value) {
-            this.courses = this.allCourses;
+            this.courses = this.coursesListService.getList();
         }
-        this.courses = this.searchCourses.transform(this.allCourses, value);
-    }
+        this.courses = this.searchCourses.transform(this.courses, value);
+    };
 }

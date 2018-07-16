@@ -7,13 +7,17 @@ import {AuthenticationService} from '../services/authentication.service';
     styleUrls: ['./masterPage.component.css']
 })
 export class MasterPageComponent implements OnInit {
+    public isAuthenticated;
 
     constructor(private authenticationService: AuthenticationService) {
     }
 
-    public user = this.authenticationService.getUser();
-
     ngOnInit() {
+        this.isAuthenticated = this.authenticationService.isAuthenticated();
+    }
+
+    ngDoCheck(changes) {
+        this.isAuthenticated = this.authenticationService.isAuthenticated();
     }
 
 }

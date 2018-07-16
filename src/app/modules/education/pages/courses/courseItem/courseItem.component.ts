@@ -11,12 +11,25 @@ export class CourseItemComponent implements OnInit {
     @Input() public removeItem: Function;
     @Output('id') id: string;
 
+    public isDialogOpened = false;
+
     constructor() {
     }
 
-    onDeleteClick(id: string) {
-        this.removeItem(id);
+    onDeleteClick() {
+        this.toggleDialog();
     }
+
+    toggleDialog = () => this.isDialogOpened = !this.isDialogOpened;
+
+    negativeAction = () => {
+        this.toggleDialog();
+    };
+
+    positiveAction = () => {
+        this.toggleDialog();
+        this.removeItem(this.item.id);
+    };
 
     ngOnInit() {
     }

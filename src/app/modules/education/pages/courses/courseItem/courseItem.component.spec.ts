@@ -4,20 +4,23 @@ import {CourseItemComponent} from './courseItem.component';
 import {DebugElement} from '@angular/core';
 import {By} from '@angular/platform-browser';
 import {CourseItem} from './courseItem.model';
-import {StyleByDateDirective} from './style-by-date.directive';
-import {HideDirective} from '../coursesList/hide.directive';
-import {DurationPipe} from './duration.pipe';
+import {StyleByDateDirective} from '../../../directives/style-by-date.directive';
+import {HideDirective} from '../../../directives/hide.directive';
+import {DurationPipe} from '../../../pipes/duration.pipe';
+import {ConfirmationDialogComponent} from '../../../general/confirmationDialog/confirmationDialog.component';
 
 describe('CourseItemComponent', () => {
     let sut: CourseItemComponent;
     let fixture: ComponentFixture<CourseItemComponent>;
     let item: CourseItem;
-    let deleteSpy;
+    let toggleSpy;
+    let removeSpy;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [
                 CourseItemComponent,
+                ConfirmationDialogComponent,
                 StyleByDateDirective,
                 HideDirective,
                 DurationPipe
@@ -33,11 +36,13 @@ describe('CourseItemComponent', () => {
         item.creationDate = 'July 7 2018';
         item.duration = '105';
         item.description = 'Description';
-        deleteSpy = jasmine.createSpy('removeItem');
+        toggleSpy = jasmine.createSpy('toggleDialog');
+        removeSpy = jasmine.createSpy('removeItem');
         fixture = TestBed.createComponent(CourseItemComponent);
         sut = fixture.componentInstance;
         sut.item = item;
-        sut.removeItem = deleteSpy;
+        sut.removeItem = removeSpy;
+
     });
 
     it('should create', () => {
@@ -83,31 +88,55 @@ describe('CourseItemComponent', () => {
         expect(button.textContent).toBe('Delete');
     });
 
-    it('should call spy on delete click', () => {
-        fixture.detectChanges();
+    it('should toggle confirmation dialog on delete button click', () => {
+        expect(sut.isDialogOpened).toBeFalsy();
+        sut.toggleDialog = toggleSpy;
+
         const debugElement: DebugElement = fixture.debugElement;
-        debugElement
+        const buttonDebugElement = debugElement
             .queryAll(By.css('.item__button'))[1]
             .triggerEventHandler('click', null);
-        expect(deleteSpy).toHaveBeenCalled();
+        fixture.detectChanges();
+        expect(toggleSpy).toHaveBeenCalled();
     });
 
-    it('should have green border', () => {
-        fixture.detectChanges();
+    it('should remove item on delete button click and confirmed action', () => {
+        expect(sut.isDialogOpened).toBeFalsy();
+
         const debugElement: DebugElement = fixture.debugElement;
+
         debugElement
             .queryAll(By.css('.item__button'))[1]
             .triggerEventHandler('click', null);
-        expect(deleteSpy).toHaveBeenCalled();
+        fixture.detectChanges();
+
+        debugElement
+            .queryAll(By.css('.confirmation-dialog__dialog_button'))[0]
+            .triggerEventHandler('click', null);
+
+        fixture.detectChanges();
+        expect(sut.isDialogOpened).toBeFalsy();
+        expect(removeSpy).toHaveBeenCalled();
     });
 
-    it('should have blue border', () => {
-        fixture.detectChanges();
+
+    it('should remove item on delete button click and not confirmed action', () => {
+        expect(sut.isDialogOpened).toBeFalsy();
+
         const debugElement: DebugElement = fixture.debugElement;
+
         debugElement
             .queryAll(By.css('.item__button'))[1]
             .triggerEventHandler('click', null);
-        expect(deleteSpy).toHaveBeenCalled();
+        fixture.detectChanges();
+
+        debugElement
+            .queryAll(By.css('.confirmation-dialog__dialog_button'))[1]
+            .triggerEventHandler('click', null);
+
+        fixture.detectChanges();
+        expect(sut.isDialogOpened).toBeFalsy();
+        expect(removeSpy).toHaveBeenCalledTimes(0);
     });
 
     it('should render rated course', () => {

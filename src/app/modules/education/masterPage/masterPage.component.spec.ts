@@ -1,4 +1,4 @@
-import {async, TestBed} from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {BreadcrumbsComponent} from '../general/breadcrumbs/breadcrumbs.component';
 import {FooterComponent} from '../general/footer/footer.component';
 import {MasterPageComponent} from './masterPage.component';
@@ -6,16 +6,17 @@ import {LogoComponent} from '../general/logo/logo.component';
 import {CourseItemComponent} from '../pages/courses/courseItem/courseItem.component';
 import {CoursesListComponent} from '../pages/courses/coursesList/coursesList.component';
 import {HeaderComponent} from '../general/header/header.component';
-import {AuthenticationService} from '../services/authentication.service';
-import {SearchCoursesPipe} from '../pages/courses/coursesList/search-courses.pipe';
-import {StyleByDateDirective} from '../pages/courses/courseItem/style-by-date.directive';
-import {HideDirective} from '../pages/courses/coursesList/hide.directive';
-import {CreationDateOrderPipe} from '../pages/courses/coursesList/creation-date-order.pipe';
-import {DurationPipe} from '../pages/courses/courseItem/duration.pipe';
+import {SearchCoursesPipe} from '../pipes/search-courses.pipe';
+import {StyleByDateDirective} from '../directives/style-by-date.directive';
+import {HideDirective} from '../directives/hide.directive';
+import {CreationDateOrderPipe} from '../pipes/creation-date-order.pipe';
+import {DurationPipe} from '../pipes/duration.pipe';
+import {LoginFormComponent} from '../general/loginForm/loginForm.component';
+import {ConfirmationDialogComponent} from '../general/confirmationDialog/confirmationDialog.component';
 
 describe('CoursesPage', () => {
     let sut: MasterPageComponent;
-    let authenticationService: Partial<AuthenticationService>;
+    let fixture: ComponentFixture<MasterPageComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -32,22 +33,20 @@ describe('CoursesPage', () => {
                 CreationDateOrderPipe,
                 StyleByDateDirective,
                 HideDirective,
-                DurationPipe
+                DurationPipe,
+                LoginFormComponent,
+                ConfirmationDialogComponent
             ]
         }).compileComponents();
     }));
 
     beforeEach(() => {
-        authenticationService = {getUser: jasmine.createSpy('getUser')};
-        sut = new MasterPageComponent(authenticationService as AuthenticationService);
+        fixture = TestBed.createComponent(MasterPageComponent);
+        sut = fixture.componentInstance;
     });
 
     it('should create', () => {
         expect(sut).toBeTruthy();
     });
 
-    it('should get user', () => {
-        expect(authenticationService.getUser).toHaveBeenCalled();
-
-    });
 });

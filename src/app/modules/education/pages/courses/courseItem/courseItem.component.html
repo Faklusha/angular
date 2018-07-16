@@ -12,6 +12,8 @@
     </div>
     <div class="item__buttons">
         <div class="item__button">Edit</div>
-        <div class="item__button" (click)="onDeleteClick(item.id)">Delete</div>
+        <div class="item__button" (click)="onDeleteClick()">Delete</div>
+        <app-confirmation *ngIf="isDialogOpened" [negativeAction]="negativeAction"
+                          [positiveAction]="positiveAction"></app-confirmation>
     </div>
 </div>

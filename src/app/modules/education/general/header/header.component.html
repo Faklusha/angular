@@ -1,5 +1,5 @@
 <div class="header">
-  <app-logo class="header__logo"></app-logo>
-  <div class="header__name">{{user.firstName}} {{user.lastName}}</div>
-  <div class="header__button">Log out</div>
+    <app-logo class="header__logo"></app-logo>
+    <div *ngIf="isAuthenticated" class="header__name">{{userInfo}}</div>
+    <div *ngIf="isAuthenticated" class="header__button" (click)="onLogOutClick()">Log out</div>
 </div>

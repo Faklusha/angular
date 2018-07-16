@@ -1,6 +1,7 @@
 <div class="page">
-  <app-header [user]="user"></app-header>
-  <app-breadcrumbs></app-breadcrumbs>
-  <app-courses></app-courses>
-  <app-footer></app-footer>
+    <app-header></app-header>
+    <app-breadcrumbs *ngIf="isAuthenticated"></app-breadcrumbs>
+    <app-courses *ngIf="isAuthenticated"></app-courses>
+    <app-login *ngIf="!isAuthenticated" class="login"></app-login>
+    <app-footer></app-footer>
 </div>

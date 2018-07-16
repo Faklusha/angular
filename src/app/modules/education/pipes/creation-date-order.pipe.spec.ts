@@ -1,12 +1,13 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {CoursesListComponent} from './coursesList.component';
+import {CoursesListComponent} from '../pages/courses/coursesList/coursesList.component';
 import {DebugElement} from '@angular/core';
-import {CourseItemComponent} from '../courseItem/courseItem.component';
-import {HideDirective} from './hide.directive';
+import {CourseItemComponent} from '../pages/courses/courseItem/courseItem.component';
+import {HideDirective} from '../directives/hide.directive';
 import {SearchCoursesPipe} from './search-courses.pipe';
 import {CreationDateOrderPipe} from './creation-date-order.pipe';
-import {StyleByDateDirective} from '../courseItem/style-by-date.directive';
-import {DurationPipe} from '../courseItem/duration.pipe';
+import {StyleByDateDirective} from '../directives/style-by-date.directive';
+import {DurationPipe} from './duration.pipe';
+import {ConfirmationDialogComponent} from '../general/confirmationDialog/confirmationDialog.component';
 
 describe('Pipe: CreationDateOrder', () => {
     let sut: CoursesListComponent;
@@ -22,7 +23,8 @@ describe('Pipe: CreationDateOrder', () => {
                 CreationDateOrderPipe,
                 StyleByDateDirective,
                 HideDirective,
-                DurationPipe
+                DurationPipe,
+                ConfirmationDialogComponent
             ]
         });
     });

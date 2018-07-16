@@ -8,11 +8,13 @@ import {LogoComponent} from './general/logo/logo.component';
 import {CourseItemComponent} from './pages/courses/courseItem/courseItem.component';
 import {HeaderComponent} from './general/header/header.component';
 import {CoursesListComponent} from './pages/courses/coursesList/coursesList.component';
-import {StyleByDateDirective} from './pages/courses/courseItem/style-by-date.directive';
-import {HideDirective} from './pages/courses/coursesList/hide.directive';
-import {DurationPipe} from './pages/courses/courseItem/duration.pipe';
-import {CreationDateOrderPipe} from './pages/courses/coursesList/creation-date-order.pipe';
-import {SearchCoursesPipe} from './pages/courses/coursesList/search-courses.pipe';
+import {StyleByDateDirective} from './directives/style-by-date.directive';
+import {HideDirective} from './directives/hide.directive';
+import {DurationPipe} from './pipes/duration.pipe';
+import {CreationDateOrderPipe} from './pipes/creation-date-order.pipe';
+import {SearchCoursesPipe} from './pipes/search-courses.pipe';
+import {ConfirmationDialogComponent} from './general/confirmationDialog/confirmationDialog.component';
+import {LoginFormComponent} from './general/loginForm/loginForm.component';
 
 @NgModule({
     imports: [
@@ -31,7 +33,9 @@ import {SearchCoursesPipe} from './pages/courses/coursesList/search-courses.pipe
         HideDirective,
         DurationPipe,
         CreationDateOrderPipe,
-        SearchCoursesPipe
+        SearchCoursesPipe,
+        ConfirmationDialogComponent,
+        LoginFormComponent
     ],
     exports: [
         AppComponent,
@@ -41,7 +45,8 @@ import {SearchCoursesPipe} from './pages/courses/coursesList/search-courses.pipe
         BreadcrumbsComponent,
         CoursesListComponent,
         CourseItemComponent,
-        FooterComponent
+        FooterComponent,
+        ConfirmationDialogComponent
     ]
 })
 export class CoursesModule {

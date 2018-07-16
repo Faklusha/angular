@@ -1,12 +1,12 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { FooterComponent } from './footer.component';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
+import {FooterComponent} from './footer.component';
+import {By} from '@angular/platform-browser';
+import {DebugElement} from '@angular/core';
 
 describe('FooterComponent', () => {
-  let sut: FooterComponent;
-  let fixture: ComponentFixture<FooterComponent>;
+    let sut: FooterComponent;
+    let fixture: ComponentFixture<FooterComponent>;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
