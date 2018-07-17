@@ -26,7 +26,7 @@ describe('Directive: StyleByDateDirective', () => {
         });
     });
 
-    it('should have blue border', () => {
+    it('should have blue border when data of course is bigger than current date', () => {
         item = new CourseItem();
         item.id = '1';
         item.title = 'Title';
@@ -42,7 +42,7 @@ describe('Directive: StyleByDateDirective', () => {
         expect(element.nativeElement.style.border).toBe('1px solid blue');
     });
 
-    it('should have green border', () => {
+    it('should have green border when data of course is less than current date', () => {
         item = new CourseItem();
         item.id = '1';
         item.title = 'Title';
