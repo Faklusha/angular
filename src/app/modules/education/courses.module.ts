@@ -15,6 +15,7 @@ import {CreationDateOrderPipe} from './pipes/creation-date-order.pipe';
 import {SearchCoursesPipe} from './pipes/search-courses.pipe';
 import {ConfirmationDialogComponent} from './general/confirmationDialog/confirmationDialog.component';
 import {LoginFormComponent} from './general/loginForm/loginForm.component';
+import {AddCourseComponent} from './pages/courses/addCourse/addCourse.component';
 
 @NgModule({
     imports: [
@@ -35,7 +36,8 @@ import {LoginFormComponent} from './general/loginForm/loginForm.component';
         CreationDateOrderPipe,
         SearchCoursesPipe,
         ConfirmationDialogComponent,
-        LoginFormComponent
+        LoginFormComponent,
+        AddCourseComponent
     ],
     exports: [
         AppComponent,
@@ -46,7 +48,8 @@ import {LoginFormComponent} from './general/loginForm/loginForm.component';
         CoursesListComponent,
         CourseItemComponent,
         FooterComponent,
-        ConfirmationDialogComponent
+        ConfirmationDialogComponent,
+        AddCourseComponent
     ]
 })
 export class CoursesModule {

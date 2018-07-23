@@ -1,0 +1,64 @@
+.add__course {
+    width: 100%;
+    height: 100%;
+}
+
+.add__course_item {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.add__course_item--label {
+    margin: 5px 0px;
+}
+
+.add__course_title--input {
+    width: 100%;
+    border: 1px solid black;
+
+}
+
+.add__course_description--input {
+    width: 100%;
+    border: 1px solid black;
+
+}
+
+.add__course_date--input {
+    width: 40%;
+    border: 1px solid black;
+
+}
+
+.add__course_duration--input {
+    width: 40%;
+    border: 1px solid black;
+
+}
+
+.add__course_button {
+    border: 1px solid black;
+    cursor: pointer;
+    padding: 5px;
+    margin: 0 5px;
+}
+
+.add__course_button:hover {
+    color: red;
+}
+
+.add__course_buttons {
+    display: flex;
+    padding: 5px;
+}
+
+.add__course_duration--options {
+    width: 100%;
+    display: flex;
+}
+
+.add__course_duration--value {
+    margin-left: 10px;
+}

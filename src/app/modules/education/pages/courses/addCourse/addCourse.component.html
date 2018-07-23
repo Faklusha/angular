@@ -1,0 +1,29 @@
+<div class="add__course">
+    <div class="add__course_item">
+        <div class="add__course_item--label">Title</div>
+        <input #addCourseTitle class="add__course_title--input" value={{item.title}}/>
+    </div>
+    <div class="add__course_item">
+        <div class="add__course_item--label">Description</div>
+        <input #addCourseDescription class="add__course_description--input" value={{item.description}}/>
+    </div>
+    <div class="add__course_item">
+        <div class="add__course_item--label">Date</div>
+        <input #addCourseDate class="add__course_date--input" value={{item.creationDate}}/>
+    </div>
+    <div class="add__course_item">
+        <div class="add__course_item--label">Duration</div>
+        <div class="add__course_duration--options">
+            <input #addCourseDuration class="add__course_duration--input"
+                   (change)="setDuration(addCourseDuration.value)" value={{item.duration}}/>
+            <span class="add__course_duration--value">{{(item.duration || addCourseDuration.value)| duration}}</span>
+        </div>
+    </div>
+    <div class="add__course_buttons">
+        <div class="add__course_button"
+             (click)="onSaveClick(addCourseTitle.value, addCourseDescription.value, addCourseDate.value, addCourseDuration.value )">
+            Save
+        </div>
+        <div class="add__course_button" (click)="onCancelClick()">Cancel</div>
+    </div>
+</div>

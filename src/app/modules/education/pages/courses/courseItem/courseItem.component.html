@@ -11,9 +11,9 @@
         </div>
     </div>
     <div class="item__buttons">
-        <div class="item__button">Edit</div>
+        <div class="item__button" (click)="onToggle(item)">Edit</div>
         <div class="item__button" (click)="onDeleteClick()">Delete</div>
-        <app-confirmation *ngIf="isDialogOpened" [negativeAction]="negativeAction"
-                          [positiveAction]="positiveAction"></app-confirmation>
+        <app-confirmation *ngIf="isDialogOpened" (negativeAction)="negativeAction($event)"
+                          (positiveAction)="positiveAction($event)"></app-confirmation>
     </div>
 </div>

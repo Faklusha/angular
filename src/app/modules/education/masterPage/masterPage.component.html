@@ -1,7 +1,9 @@
 <div class="page">
     <app-header></app-header>
-    <app-breadcrumbs *ngIf="isAuthenticated"></app-breadcrumbs>
-    <app-courses *ngIf="isAuthenticated"></app-courses>
+    <app-breadcrumbs *ngIf="isAuthenticated && !isAddPage"></app-breadcrumbs>
     <app-login *ngIf="!isAuthenticated" class="login"></app-login>
+    <app-courses *ngIf="isAuthenticated && !isAddPage" (toggleAddPage)="toggleAddPage($event)"></app-courses>
+    <app-add *ngIf="isAuthenticated && isAddPage" [item]="currentItem" class="login"
+             [toggleAddPage]="toggleAddPage"></app-add>
     <app-footer></app-footer>
 </div>

@@ -13,5 +13,5 @@ export class LoginFormComponent implements OnInit {
     ngOnInit() {
     }
 
-    onLogInClick = (name, password) => this.authenticationService.login(name, password);
+    onLogInClick = (name: string, password: string) => this.authenticationService.login(name, password);
 }

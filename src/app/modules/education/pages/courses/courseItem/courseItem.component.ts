@@ -1,37 +1,29 @@
-import {Component, OnInit, Input, Output} from '@angular/core';
+import {Component, OnInit, Input, Output, ChangeDetectionStrategy, EventEmitter} from '@angular/core';
 import {CourseItem} from './courseItem.model';
 
 @Component({
     selector: 'app-item',
     templateUrl: './courseItem.component.html',
-    styleUrls: ['./courseItem.component.css']
+    styleUrls: ['./courseItem.component.css'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CourseItemComponent implements OnInit {
+export class CourseItemComponent {
     @Input() public item: CourseItem;
-    @Input() public removeItem: Function;
-    @Output('id') id: string;
+    @Output() removeItem = new EventEmitter<string>();
+    @Output() toggleAddPage = new EventEmitter<CourseItem>();
 
     public isDialogOpened = false;
 
-    constructor() {
-    }
-
-    onDeleteClick() {
-        this.toggleDialog();
-    }
+    onDeleteClick = () => this.toggleDialog();
 
     toggleDialog = () => this.isDialogOpened = !this.isDialogOpened;
 
-    negativeAction = () => {
-        this.toggleDialog();
-    };
+    negativeAction = () => this.toggleDialog();
 
     positiveAction = () => {
         this.toggleDialog();
-        this.removeItem(this.item.id);
+        this.removeItem.emit(this.item.id);
     };
 
-    ngOnInit() {
-    }
-
+    onToggle = (item?: CourseItem) => this.toggleAddPage.emit(item);
 }
