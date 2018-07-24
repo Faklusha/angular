@@ -14,7 +14,6 @@ describe('CourseItemComponent', () => {
     let fixture: ComponentFixture<CourseItemComponent>;
     let item: CourseItem;
     let toggleSpy;
-    let removeSpy;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -37,12 +36,9 @@ describe('CourseItemComponent', () => {
         item.duration = '105';
         item.description = 'Description';
         toggleSpy = jasmine.createSpy('toggleDialog');
-        removeSpy = jasmine.createSpy('removeItem');
         fixture = TestBed.createComponent(CourseItemComponent);
         sut = fixture.componentInstance;
         sut.item = item;
-        sut.removeItem = removeSpy;
-
     });
 
     it('should create', () => {
@@ -98,45 +94,6 @@ describe('CourseItemComponent', () => {
             .triggerEventHandler('click', null);
         fixture.detectChanges();
         expect(toggleSpy).toHaveBeenCalled();
-    });
-
-    it('should remove item on delete button click and confirmed action', () => {
-        expect(sut.isDialogOpened).toBeFalsy();
-
-        const debugElement: DebugElement = fixture.debugElement;
-
-        debugElement
-            .queryAll(By.css('.item__button'))[1]
-            .triggerEventHandler('click', null);
-        fixture.detectChanges();
-
-        debugElement
-            .queryAll(By.css('.confirmation-dialog__dialog_button'))[0]
-            .triggerEventHandler('click', null);
-
-        fixture.detectChanges();
-        expect(sut.isDialogOpened).toBeFalsy();
-        expect(removeSpy).toHaveBeenCalled();
-    });
-
-
-    it('should remove item on delete button click and not confirmed action', () => {
-        expect(sut.isDialogOpened).toBeFalsy();
-
-        const debugElement: DebugElement = fixture.debugElement;
-
-        debugElement
-            .queryAll(By.css('.item__button'))[1]
-            .triggerEventHandler('click', null);
-        fixture.detectChanges();
-
-        debugElement
-            .queryAll(By.css('.confirmation-dialog__dialog_button'))[1]
-            .triggerEventHandler('click', null);
-
-        fixture.detectChanges();
-        expect(sut.isDialogOpened).toBeFalsy();
-        expect(removeSpy).toHaveBeenCalledTimes(0);
     });
 
     it('should render rated course', () => {

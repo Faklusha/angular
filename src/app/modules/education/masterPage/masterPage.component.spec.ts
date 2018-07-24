@@ -13,6 +13,7 @@ import {CreationDateOrderPipe} from '../pipes/creation-date-order.pipe';
 import {DurationPipe} from '../pipes/duration.pipe';
 import {LoginFormComponent} from '../general/loginForm/loginForm.component';
 import {ConfirmationDialogComponent} from '../general/confirmationDialog/confirmationDialog.component';
+import {AddCourseComponent} from '../pages/courses/addCourse/addCourse.component';
 
 describe('CoursesPage', () => {
     let sut: MasterPageComponent;
@@ -35,7 +36,8 @@ describe('CoursesPage', () => {
                 HideDirective,
                 DurationPipe,
                 LoginFormComponent,
-                ConfirmationDialogComponent
+                ConfirmationDialogComponent,
+                AddCourseComponent
             ]
         }).compileComponents();
     }));

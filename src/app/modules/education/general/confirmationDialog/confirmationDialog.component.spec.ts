@@ -6,8 +6,8 @@ import {By} from '@angular/platform-browser';
 describe('ConfirmationDialogComponent', () => {
     let sut: ConfirmationDialogComponent;
     let fixture: ComponentFixture<ConfirmationDialogComponent>;
-    let positiveAction;
-    let negativeAction;
+    let onPositiveAction;
+    let onNegativeAction;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -18,10 +18,10 @@ describe('ConfirmationDialogComponent', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(ConfirmationDialogComponent);
         sut = fixture.componentInstance;
-        positiveAction = jasmine.createSpy('removeItem');
-        negativeAction = jasmine.createSpy('removeItem');
-        sut.positiveAction = positiveAction;
-        sut.negativeAction = negativeAction;
+        onNegativeAction = jasmine.createSpy('onNegativeAction');
+        onPositiveAction = jasmine.createSpy('onPositiveAction');
+        sut.onNegativeAction = onNegativeAction;
+        sut.onPositiveAction = onPositiveAction;
     });
 
     it('should call positive action function', () => {
@@ -30,7 +30,7 @@ describe('ConfirmationDialogComponent', () => {
         const buttonDebugElement = debugElement
             .queryAll(By.css('.confirmation-dialog__dialog_button'))[0]
             .triggerEventHandler('click', null);
-        expect(positiveAction).toHaveBeenCalled();
+        expect(onPositiveAction).toHaveBeenCalled();
     });
 
     it('should call negative action function', () => {
@@ -39,6 +39,6 @@ describe('ConfirmationDialogComponent', () => {
         const buttonDebugElement = debugElement
             .queryAll(By.css('.confirmation-dialog__dialog_button'))[1]
             .triggerEventHandler('click', null);
-        expect(negativeAction).toHaveBeenCalled();
+        expect(onNegativeAction).toHaveBeenCalled();
     });
 });
