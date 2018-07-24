@@ -32,5 +32,5 @@ export class MasterPageComponent implements OnInit {
             this.currentItem = item || null;
         }
         this.isAddPage = !this.isAddPage;
-    }
+    };
 }

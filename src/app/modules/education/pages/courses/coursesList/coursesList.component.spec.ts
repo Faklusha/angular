@@ -16,6 +16,7 @@ describe('CoursesListComponent', () => {
     let fixture: ComponentFixture<CoursesListComponent>;
     let loadSpy;
     let searchSpy;
+    let toggleSpy;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -38,7 +39,8 @@ describe('CoursesListComponent', () => {
         sut = fixture.componentInstance;
         loadSpy = jasmine.createSpy('onLoadClick');
         sut.onLoadClick = loadSpy;
-
+        toggleSpy = jasmine.createSpy('onToggle');
+        sut.onToggle = toggleSpy;
         searchSpy = jasmine.createSpy('onSearchClick');
         sut.onSearchClick = searchSpy;
     });
@@ -75,5 +77,14 @@ describe('CoursesListComponent', () => {
             .query(By.css('.search__button'))
             .triggerEventHandler('click', null);
         expect(searchSpy).toHaveBeenCalled();
+    });
+
+    it('should call spy on add new click', () => {
+        fixture.detectChanges();
+        const debugElement: DebugElement = fixture.debugElement;
+        debugElement
+            .query(By.css('.options__button'))
+            .triggerEventHandler('click', null);
+        expect(toggleSpy).toHaveBeenCalled();
     });
 });

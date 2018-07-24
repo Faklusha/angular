@@ -18,15 +18,15 @@ export class AddCourseComponent implements OnInit {
 
     ngOnInit() {
         if (!this.item) {
-        this.item = {
-            id: Math.random().toString(),
-            title: '',
-            creationDate: '',
-            duration: '',
-            description: '',
-            topRated: false
-        };
-    }
+            this.item = {
+                id: Math.random().toString(),
+                title: '',
+                creationDate: '',
+                duration: '',
+                description: '',
+                topRated: false
+            };
+        }
     }
 
     onSaveClick = (title?: string, description?: string, date?: string, duration?: string) => {
@@ -44,7 +44,7 @@ export class AddCourseComponent implements OnInit {
             this.coursesListService.createCourse(newItem);
         }
         this.onCancelClick();
-    }
+    };
 
     onCancelClick = () => this.toggleAddPage();
 

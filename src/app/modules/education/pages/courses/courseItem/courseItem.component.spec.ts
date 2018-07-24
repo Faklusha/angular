@@ -14,6 +14,7 @@ describe('CourseItemComponent', () => {
     let fixture: ComponentFixture<CourseItemComponent>;
     let item: CourseItem;
     let toggleSpy;
+    let toggleDialogSpy;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -35,10 +36,15 @@ describe('CourseItemComponent', () => {
         item.creationDate = 'July 7 2018';
         item.duration = '105';
         item.description = 'Description';
-        toggleSpy = jasmine.createSpy('toggleDialog');
+        toggleDialogSpy = jasmine.createSpy('toggleDialog');
+        toggleSpy = jasmine.createSpy('onToggle');
+
+
         fixture = TestBed.createComponent(CourseItemComponent);
         sut = fixture.componentInstance;
         sut.item = item;
+        sut.toggleDialog = toggleDialogSpy;
+        sut.onToggle = toggleSpy;
     });
 
     it('should create', () => {
@@ -76,6 +82,15 @@ describe('CourseItemComponent', () => {
         expect(button.textContent).toBe('Edit');
     });
 
+    it('should call spy on edit button click', () => {
+        fixture.detectChanges();
+        const debugElement: DebugElement = fixture.debugElement;
+        debugElement.queryAll(By.css('.item__button'))[0]
+            .triggerEventHandler('click', null);
+        fixture.detectChanges();
+        expect(toggleSpy).toHaveBeenCalled();
+    });
+
     it('should show correct delete button title', () => {
         fixture.detectChanges();
         const debugElement: DebugElement = fixture.debugElement;
@@ -86,14 +101,13 @@ describe('CourseItemComponent', () => {
 
     it('should toggle confirmation dialog on delete button click', () => {
         expect(sut.isDialogOpened).toBeFalsy();
-        sut.toggleDialog = toggleSpy;
 
         const debugElement: DebugElement = fixture.debugElement;
         const buttonDebugElement = debugElement
             .queryAll(By.css('.item__button'))[1]
             .triggerEventHandler('click', null);
         fixture.detectChanges();
-        expect(toggleSpy).toHaveBeenCalled();
+        expect(toggleDialogSpy).toHaveBeenCalled();
     });
 
     it('should render rated course', () => {
