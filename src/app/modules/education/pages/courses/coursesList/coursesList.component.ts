@@ -2,6 +2,7 @@ import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output}
 import {CoursesListService} from './coursesList.service';
 import {SearchCoursesPipe} from '../../../pipes/search-courses.pipe';
 import {CourseItem} from '../courseItem/courseItem.model';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-courses',
@@ -11,11 +12,9 @@ import {CourseItem} from '../courseItem/courseItem.model';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CoursesListComponent implements OnInit {
-    @Output() toggleAddPage = new EventEmitter<CourseItem>();
-
     public courses;
 
-    constructor(private coursesListService: CoursesListService, private searchCourses: SearchCoursesPipe) {
+    constructor(private router: Router, private coursesListService: CoursesListService, private searchCourses: SearchCoursesPipe) {
     }
 
     ngOnChanges() {
@@ -53,10 +52,17 @@ export class CoursesListComponent implements OnInit {
 
     removeItem = (id: string) => {
         this.courses = (this.coursesListService.removeCourse(id));
-    };
+    }
 
     onLoadClick() {
         console.log('load');
+    }
+
+    onAddNewClick(id?: string) {
+        if (id) {
+            return this.router.navigate(['courses', id]);
+        }
+        return this.router.navigate(['courses/new']);
     }
 
     onSearchClick = (value: string) => {
@@ -66,5 +72,4 @@ export class CoursesListComponent implements OnInit {
         this.courses = this.searchCourses.transform(this.courses, value);
     }
 
-    onToggle = (item?: CourseItem) => this.toggleAddPage.emit(item);
 }

@@ -1,6 +1,7 @@
-import {Component, OnInit, Input, Output, ChangeDetectionStrategy} from '@angular/core';
+import {Component, OnInit, Input, ChangeDetectionStrategy} from '@angular/core';
 import {CoursesListService} from '../coursesList/coursesList.service';
 import {CourseItem} from '../courseItem/courseItem.model';
+import {Router, ActivatedRoute} from '@angular/router';
 
 @Component({
     selector: 'app-add',
@@ -9,34 +10,40 @@ import {CourseItem} from '../courseItem/courseItem.model';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AddCourseComponent implements OnInit {
-    @Input() public toggleAddPage: Function;
-    @Input() public item: CourseItem;
+    public item: CourseItem;
+    public id: string;
+    public title: string;
+    public creationDate: string;
+    public duration: string;
+    public description: string;
+    public topRated: boolean;
 
-    constructor(private coursesListService: CoursesListService) {
+    constructor(private router: Router, private route: ActivatedRoute, private coursesListService: CoursesListService) {
 
     }
 
     ngOnInit() {
-        if (!this.item) {
-            this.item = {
-                id: Math.random().toString(),
-                title: '',
-                creationDate: '',
-                duration: '',
-                description: '',
-                topRated: false
-            };
-        }
+        this.route.params.subscribe((data) => {
+            this.id = data['id'];
+        });
+
+        this.item = this.coursesListService.getCourse(this.id);
+
+        this.title = this.item ? this.item.title : '';
+        this.creationDate = this.item ? this.item.creationDate : '';
+        this.duration = this.item ? this.item.duration : '';
+        this.description = this.item ? this.item.description : '';
+        this.topRated = this.item ? this.item.topRated : false;
     }
 
-    onSaveClick = (title?: string, description?: string, date?: string, duration?: string) => {
+    onSaveClick = () => {
         const newItem = {
-            id: this.item.id,
-            title,
-            creationDate: date,
-            duration,
-            description,
-            topRated: false
+            id: this.id || Math.random().toString(),
+            title: this.title,
+            creationDate: this.creationDate,
+            duration: this.duration,
+            description: this.description,
+            topRated: this.topRated
         };
         if (this.item) {
             this.coursesListService.updateCourse(newItem);
@@ -44,9 +51,13 @@ export class AddCourseComponent implements OnInit {
             this.coursesListService.createCourse(newItem);
         }
         this.onCancelClick();
-    };
+    }
 
-    onCancelClick = () => this.toggleAddPage();
+    onCancelClick = () => {
+        return this.router.navigate(['courses']);
+    }
 
-    setDuration = (value: string) => this.item.duration = value;
+    setDuration = (value: string) => this.duration = value;
+
+    updateItem = target => this[target.name] = target.value;
 }

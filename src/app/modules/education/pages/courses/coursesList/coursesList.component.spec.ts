@@ -10,16 +10,19 @@ import {CreationDateOrderPipe} from '../../../pipes/creation-date-order.pipe';
 import {StyleByDateDirective} from '../../../directives/style-by-date.directive';
 import {DurationPipe} from '../../../pipes/duration.pipe';
 import {ConfirmationDialogComponent} from '../../../general/confirmationDialog/confirmationDialog.component';
+import {BreadcrumbsComponent} from '../../../general/breadcrumbs/breadcrumbs.component';
+import {RouterTestingModule} from '@angular/router/testing';
+import {ROUTES} from '../../../courses.routes';
 
 describe('CoursesListComponent', () => {
     let sut: CoursesListComponent;
     let fixture: ComponentFixture<CoursesListComponent>;
     let loadSpy;
     let searchSpy;
-    let toggleSpy;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
+            imports: [    RouterTestingModule.withRoutes(ROUTES)],
             declarations: [
                 CoursesListComponent,
                 CourseItemComponent,
@@ -27,6 +30,7 @@ describe('CoursesListComponent', () => {
                 SearchCoursesPipe,
                 CreationDateOrderPipe,
                 StyleByDateDirective,
+                BreadcrumbsComponent,
                 HideDirective,
                 DurationPipe,
                 ConfirmationDialogComponent
@@ -39,8 +43,6 @@ describe('CoursesListComponent', () => {
         sut = fixture.componentInstance;
         loadSpy = jasmine.createSpy('onLoadClick');
         sut.onLoadClick = loadSpy;
-        toggleSpy = jasmine.createSpy('onToggle');
-        sut.onToggle = toggleSpy;
         searchSpy = jasmine.createSpy('onSearchClick');
         sut.onSearchClick = searchSpy;
     });
@@ -77,14 +79,5 @@ describe('CoursesListComponent', () => {
             .query(By.css('.search__button'))
             .triggerEventHandler('click', null);
         expect(searchSpy).toHaveBeenCalled();
-    });
-
-    it('should call spy on add new click', () => {
-        fixture.detectChanges();
-        const debugElement: DebugElement = fixture.debugElement;
-        debugElement
-            .query(By.css('.options__button'))
-            .triggerEventHandler('click', null);
-        expect(toggleSpy).toHaveBeenCalled();
     });
 });

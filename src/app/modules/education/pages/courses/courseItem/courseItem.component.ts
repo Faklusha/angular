@@ -10,7 +10,7 @@ import {CourseItem} from './courseItem.model';
 export class CourseItemComponent {
     @Input() public item: CourseItem;
     @Output() removeItem = new EventEmitter<string>();
-    @Output() toggleAddPage = new EventEmitter<CourseItem>();
+    @Output() onAddNewClick = new EventEmitter<string>();
 
     public isDialogOpened = false;
 
@@ -25,5 +25,7 @@ export class CourseItemComponent {
         this.removeItem.emit(this.item.id);
     };
 
-    onToggle = (item?: CourseItem) => this.toggleAddPage.emit(item);
+    onEditClick = () => this.onAddNewClick.emit(this.item.id);
 }
+
+

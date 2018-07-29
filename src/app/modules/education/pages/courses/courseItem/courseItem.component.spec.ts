@@ -13,7 +13,6 @@ describe('CourseItemComponent', () => {
     let sut: CourseItemComponent;
     let fixture: ComponentFixture<CourseItemComponent>;
     let item: CourseItem;
-    let toggleSpy;
     let toggleDialogSpy;
 
     beforeEach(() => {
@@ -37,14 +36,10 @@ describe('CourseItemComponent', () => {
         item.duration = '105';
         item.description = 'Description';
         toggleDialogSpy = jasmine.createSpy('toggleDialog');
-        toggleSpy = jasmine.createSpy('onToggle');
-
-
         fixture = TestBed.createComponent(CourseItemComponent);
         sut = fixture.componentInstance;
         sut.item = item;
         sut.toggleDialog = toggleDialogSpy;
-        sut.onToggle = toggleSpy;
     });
 
     it('should create', () => {
@@ -80,15 +75,6 @@ describe('CourseItemComponent', () => {
         const buttonDebugElement = debugElement.queryAll(By.css('.item__button'))[0];
         const button = buttonDebugElement.nativeElement;
         expect(button.textContent).toBe('Edit');
-    });
-
-    it('should call spy on edit button click', () => {
-        fixture.detectChanges();
-        const debugElement: DebugElement = fixture.debugElement;
-        debugElement.queryAll(By.css('.item__button'))[0]
-            .triggerEventHandler('click', null);
-        fixture.detectChanges();
-        expect(toggleSpy).toHaveBeenCalled();
     });
 
     it('should show correct delete button title', () => {

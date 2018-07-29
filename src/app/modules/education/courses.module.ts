@@ -1,4 +1,6 @@
 import {NgModule} from '@angular/core';
+import { RouterModule } from '@angular/router';
+
 import {CommonModule} from '@angular/common';
 import {BreadcrumbsComponent} from './general/breadcrumbs/breadcrumbs.component';
 import {AppComponent} from '../../app.component';
@@ -16,11 +18,17 @@ import {SearchCoursesPipe} from './pipes/search-courses.pipe';
 import {ConfirmationDialogComponent} from './general/confirmationDialog/confirmationDialog.component';
 import {LoginFormComponent} from './general/loginForm/loginForm.component';
 import {AddCourseComponent} from './pages/courses/addCourse/addCourse.component';
+import {NoFoundPageComponent} from './pages/noFoundPage/noFoundPage.component';
+import {ROUTES} from './courses.routes';
+import {CanActivateGuard} from './guards/canActivateGuard';
+
 
 @NgModule({
     imports: [
-        CommonModule
+        CommonModule,
+        RouterModule.forRoot(ROUTES, { useHash: true })
     ],
+    providers: [CanActivateGuard],
     declarations: [
         AppComponent,
         MasterPageComponent,
@@ -37,7 +45,8 @@ import {AddCourseComponent} from './pages/courses/addCourse/addCourse.component'
         SearchCoursesPipe,
         ConfirmationDialogComponent,
         LoginFormComponent,
-        AddCourseComponent
+        AddCourseComponent,
+        NoFoundPageComponent
     ],
     exports: [
         AppComponent,
@@ -49,7 +58,8 @@ import {AddCourseComponent} from './pages/courses/addCourse/addCourse.component'
         CourseItemComponent,
         FooterComponent,
         ConfirmationDialogComponent,
-        AddCourseComponent
+        AddCourseComponent,
+        NoFoundPageComponent
     ]
 })
 export class CoursesModule {

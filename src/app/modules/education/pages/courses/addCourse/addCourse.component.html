@@ -1,27 +1,28 @@
+<app-breadcrumbs></app-breadcrumbs>
 <div class="add__course">
     <div class="add__course_item">
         <div class="add__course_item--label">Title</div>
-        <input #addCourseTitle class="add__course_title--input" value={{item.title}}/>
+        <input class="add__course_title--input"  value={{title}} name="title" (change)="updateItem($event.target)"/>
     </div>
     <div class="add__course_item">
         <div class="add__course_item--label">Description</div>
-        <input #addCourseDescription class="add__course_description--input" value={{item.description}}/>
+        <input  class="add__course_description--input" value={{description}} name="description" (change)="updateItem($event.target)"/>
     </div>
     <div class="add__course_item">
         <div class="add__course_item--label">Date</div>
-        <input #addCourseDate class="add__course_date--input" value={{item.creationDate}}/>
+        <input class="add__course_date--input" value={{creationDate}} name="creationDate" (change)="updateItem($event.target)"/>
     </div>
     <div class="add__course_item">
         <div class="add__course_item--label">Duration</div>
         <div class="add__course_duration--options">
-            <input #addCourseDuration class="add__course_duration--input"
-                   (change)="setDuration(addCourseDuration.value)" value={{item.duration}}/>
-            <span class="add__course_duration--value">{{(item.duration || addCourseDuration.value)| duration}}</span>
+            <input class="add__course_duration--input"
+                   (change)="setDuration(duration)" value={{duration}} name="duration" (change)="updateItem($event.target)"/>
+            <span class="add__course_duration--value">{{duration| duration}}</span>
         </div>
     </div>
     <div class="add__course_buttons">
         <div class="add__course_button"
-             (click)="onSaveClick(addCourseTitle.value, addCourseDescription.value, addCourseDate.value, addCourseDuration.value )">Save</div>
+             (click)="onSaveClick()">Save</div>
         <div class="add__course_button" (click)="onCancelClick()">Cancel</div>
     </div>
 </div>
