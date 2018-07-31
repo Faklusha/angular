@@ -1,3 +1,4 @@
 <div class="breadcrumbs">
-    <span>Courses</span>
+    <a routerLink="../" class="clickable">Courses</a>
+    <span *ngIf="!!item"> / {{item}}</span>
 </div>

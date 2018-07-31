@@ -1,4 +1,6 @@
-import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
+import {Component, ViewEncapsulation, OnInit, ChangeDetectionStrategy} from '@angular/core';
+import { Router, RouterEvent, ActivatedRoute } from '@angular/router';
+
 import {AuthenticationService} from '../services/authentication.service';
 import {CourseItem} from '../pages/courses/courseItem/courseItem.model';
 
@@ -7,30 +9,16 @@ import {CourseItem} from '../pages/courses/courseItem/courseItem.model';
     templateUrl: './masterPage.component.html',
     styleUrls: ['./masterPage.component.css'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    encapsulation: ViewEncapsulation.None
 })
 export class MasterPageComponent implements OnInit {
     public isAuthenticated: boolean;
     public isAddPage: boolean;
     public currentItem?: CourseItem;
 
-    constructor(private authenticationService: AuthenticationService) {
+    constructor(private router: Router, private authenticationService: AuthenticationService) {
     }
 
-    ngOnInit() {
-        this.isAuthenticated = this.authenticationService.isAuthenticated();
-        this.isAddPage = false;
-    }
+    ngOnInit() {}
 
-    ngDoCheck() {
-        this.isAuthenticated = this.authenticationService.isAuthenticated();
-    }
-
-    toggleAddPage = (item: CourseItem) => {
-        if (this.isAddPage) {
-            this.currentItem = null;
-        } else {
-            this.currentItem = item || null;
-        }
-        this.isAddPage = !this.isAddPage;
-    };
 }

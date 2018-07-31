@@ -27,3 +27,8 @@
 .login-form__button:hover {
     color: red;
 }
+
+.login {
+    display: flex;
+    margin: 20px;
+}
