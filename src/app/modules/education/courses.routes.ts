@@ -13,10 +13,10 @@ export const ROUTES: Routes = [
     {path: 'redirect', redirectTo: 'courses', pathMatch: 'full'},
 
     /// Edit course
-    {path: 'courses/:id', component: AddCourseComponent,  canActivate: [CanActivateGuard]},
+    {path: 'courses/:id', component: AddCourseComponent, canActivate: [CanActivateGuard]},
 
     /// Add course
-    {path: 'courses/new', component: AddCourseComponent,  canActivate: [CanActivateGuard]},
+    {path: 'courses/new', component: AddCourseComponent, canActivate: [CanActivateGuard]},
 
     /// Login
     {path: 'login', component: LoginFormComponent},

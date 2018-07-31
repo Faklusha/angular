@@ -1,13 +1,14 @@
 <div class="login">
-<div class="login-form">
-    <div class="login-form__item">
-        <span class="login-form__item_title">Login</span>
-        <input #loginNameInput class="login-form__item_input"/>
+    <div class="login-form">
+        <div class="login-form__item">
+            <span class="login-form__item_title">Login</span>
+            <input #loginNameInput class="login-form__item_input"/>
+        </div>
+        <div class="login-form__item">
+            <span class="login-form__item_title">Password</span>
+            <input #loginPasswordInput class="login-form__item_input"/>
+        </div>
+        <div class="login-form__button" (click)="onLogInClick(loginNameInput.value, loginPasswordInput.value)">Enter
+        </div>
     </div>
-    <div class="login-form__item">
-        <span class="login-form__item_title">Password</span>
-        <input #loginPasswordInput class="login-form__item_input"/>
-    </div>
-    <div class="login-form__button" (click)="onLogInClick(loginNameInput.value, loginPasswordInput.value)">Enter</div>
-</div>
 </div>

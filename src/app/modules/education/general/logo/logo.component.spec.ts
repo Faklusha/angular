@@ -1,11 +1,11 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { LogoComponent } from './logo.component';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {LogoComponent} from './logo.component';
+import {By} from '@angular/platform-browser';
+import {DebugElement} from '@angular/core';
 
 describe('LogoComponent', () => {
-  let sut: LogoComponent;
-  let fixture: ComponentFixture<LogoComponent>;
+    let sut: LogoComponent;
+    let fixture: ComponentFixture<LogoComponent>;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -14,7 +14,7 @@ describe('LogoComponent', () => {
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(LogoComponent);         
+        fixture = TestBed.createComponent(LogoComponent);
         sut = fixture.componentInstance;
     });
 

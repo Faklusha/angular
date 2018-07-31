@@ -1,14 +1,14 @@
 .breadcrumbs {
-  display: flex;
-  padding: 10px;
+    display: flex;
+    padding: 10px;
 }
 
 .clickable {
-  color: black;
-  text-decoration: none;
+    color: black;
+    text-decoration: none;
 }
 
 .clickable:hover {
-  cursor: pointer;
-  color: red;
+    cursor: pointer;
+    color: red;
 }

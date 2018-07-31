@@ -14,6 +14,7 @@ import {DurationPipe} from '../pipes/duration.pipe';
 import {LoginFormComponent} from '../general/loginForm/loginForm.component';
 import {ConfirmationDialogComponent} from '../general/confirmationDialog/confirmationDialog.component';
 import {AddCourseComponent} from '../pages/courses/addCourse/addCourse.component';
+import {RouterTestingModule} from '@angular/router/testing';
 
 describe('CoursesPage', () => {
     let sut: MasterPageComponent;
@@ -38,6 +39,9 @@ describe('CoursesPage', () => {
                 LoginFormComponent,
                 ConfirmationDialogComponent,
                 AddCourseComponent
+            ],
+            imports: [
+                RouterTestingModule.withRoutes([]),
             ]
         }).compileComponents();
     }));

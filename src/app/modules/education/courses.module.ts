@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import { RouterModule } from '@angular/router';
+import {RouterModule} from '@angular/router';
 
 import {CommonModule} from '@angular/common';
 import {BreadcrumbsComponent} from './general/breadcrumbs/breadcrumbs.component';
@@ -26,7 +26,7 @@ import {CanActivateGuard} from './guards/canActivateGuard';
 @NgModule({
     imports: [
         CommonModule,
-        RouterModule.forRoot(ROUTES, { useHash: true })
+        RouterModule.forRoot(ROUTES, {useHash: true})
     ],
     providers: [CanActivateGuard],
     declarations: [

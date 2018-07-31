@@ -23,7 +23,7 @@ export class CourseItemComponent {
     positiveAction = () => {
         this.toggleDialog();
         this.removeItem.emit(this.item.id);
-    };
+    }
 
     onEditClick = () => this.onAddNewClick.emit(this.item.id);
 }

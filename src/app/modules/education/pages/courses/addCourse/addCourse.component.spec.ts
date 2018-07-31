@@ -5,6 +5,8 @@ import {By} from '@angular/platform-browser';
 import {DurationPipe} from '../../../pipes/duration.pipe';
 import {AddCourseComponent} from './addCourse.component';
 import {CourseItem} from '../courseItem/courseItem.model';
+import {BreadcrumbsComponent} from '../../../general/breadcrumbs/breadcrumbs.component';
+import {RouterTestingModule} from '@angular/router/testing';
 
 describe('AddCourseComponent', () => {
     let sut: AddCourseComponent;
@@ -18,7 +20,11 @@ describe('AddCourseComponent', () => {
         TestBed.configureTestingModule({
             declarations: [
                 DurationPipe,
-                AddCourseComponent
+                AddCourseComponent,
+                BreadcrumbsComponent
+            ],
+            imports: [
+                RouterTestingModule.withRoutes([])
             ]
         });
     });
@@ -106,7 +112,7 @@ describe('AddCourseComponent', () => {
             .queryAll(By.css('.add__course_button'))[0]
             .triggerEventHandler('click', null);
 
-        expect(saveSpy).toHaveBeenCalledWith(item.title, item.description, item.creationDate, item.duration);
+        expect(saveSpy).toHaveBeenCalled();
     });
 
     it('should show correct cancel button title', () => {

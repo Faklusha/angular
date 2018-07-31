@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {User} from './users.model';
-import {first} from 'rxjs/internal/operators';
 import {Router} from '@angular/router';
 
 @Injectable({
@@ -10,7 +9,8 @@ export class AuthenticationService {
     public user: User;
     private tokenKey = 'app_token';
 
-    constructor(private router: Router) {}
+    constructor(private router?: Router) {
+    }
 
     private store(token?: string) {
         localStorage.setItem(this.tokenKey, token);

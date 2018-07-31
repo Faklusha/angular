@@ -52,7 +52,7 @@ export class CoursesListComponent implements OnInit {
 
     removeItem = (id: string) => {
         this.courses = (this.coursesListService.removeCourse(id));
-    }
+    };
 
     onLoadClick() {
         console.log('load');
@@ -70,6 +70,6 @@ export class CoursesListComponent implements OnInit {
             this.courses = this.coursesListService.getList();
         }
         this.courses = this.searchCourses.transform(this.courses, value);
-    }
+    };
 
 }

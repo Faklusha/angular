@@ -3,6 +3,7 @@ import {HeaderComponent} from './header.component';
 import {By} from '@angular/platform-browser';
 import {DebugElement} from '@angular/core';
 import {LogoComponent} from '../logo/logo.component';
+import {RouterTestingModule} from '@angular/router/testing';
 
 describe('HeaderComponent', () => {
     let sut: HeaderComponent;
@@ -10,7 +11,10 @@ describe('HeaderComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [HeaderComponent, LogoComponent]
+            declarations: [HeaderComponent, LogoComponent],
+            imports: [
+                RouterTestingModule.withRoutes([])
+            ]
         });
     });
 

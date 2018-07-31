@@ -10,6 +10,8 @@ import {CreationDateOrderPipe} from '../pipes/creation-date-order.pipe';
 import {StyleByDateDirective} from './style-by-date.directive';
 import {DurationPipe} from '../pipes/duration.pipe';
 import {ConfirmationDialogComponent} from '../general/confirmationDialog/confirmationDialog.component';
+import {BreadcrumbsComponent} from '../general/breadcrumbs/breadcrumbs.component';
+import {RouterTestingModule} from '@angular/router/testing';
 
 describe('Derective: Hide', () => {
     let sut: CoursesListComponent;
@@ -26,7 +28,10 @@ describe('Derective: Hide', () => {
                 StyleByDateDirective,
                 HideDirective,
                 DurationPipe,
-                ConfirmationDialogComponent
+                ConfirmationDialogComponent,
+                BreadcrumbsComponent
+            ], imports: [
+                RouterTestingModule.withRoutes([])
             ]
         });
     });

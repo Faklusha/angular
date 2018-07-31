@@ -2,6 +2,7 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {DebugElement} from '@angular/core';
 import {LoginFormComponent} from './loginForm.component';
+import {RouterTestingModule} from '@angular/router/testing';
 
 describe('LoginFormComponent', () => {
     let sut: LoginFormComponent;
@@ -10,7 +11,10 @@ describe('LoginFormComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [LoginFormComponent]
+            declarations: [LoginFormComponent],
+            imports: [
+                RouterTestingModule.withRoutes([])
+            ]
         });
     });
 

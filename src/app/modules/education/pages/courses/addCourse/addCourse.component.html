@@ -2,27 +2,31 @@
 <div class="add__course">
     <div class="add__course_item">
         <div class="add__course_item--label">Title</div>
-        <input class="add__course_title--input"  value={{title}} name="title" (change)="updateItem($event.target)"/>
+        <input class="add__course_title--input" value={{title}} name="title" (change)="updateItem($event.target)"/>
     </div>
     <div class="add__course_item">
         <div class="add__course_item--label">Description</div>
-        <input  class="add__course_description--input" value={{description}} name="description" (change)="updateItem($event.target)"/>
+        <input class="add__course_description--input" value={{description}} name="description"
+               (change)="updateItem($event.target)"/>
     </div>
     <div class="add__course_item">
         <div class="add__course_item--label">Date</div>
-        <input class="add__course_date--input" value={{creationDate}} name="creationDate" (change)="updateItem($event.target)"/>
+        <input class="add__course_date--input" value={{creationDate}} name="creationDate"
+               (change)="updateItem($event.target)"/>
     </div>
     <div class="add__course_item">
         <div class="add__course_item--label">Duration</div>
         <div class="add__course_duration--options">
             <input class="add__course_duration--input"
-                   (change)="setDuration(duration)" value={{duration}} name="duration" (change)="updateItem($event.target)"/>
+                   (change)="setDuration(duration)" value={{duration}} name="duration"
+                   (change)="updateItem($event.target)"/>
             <span class="add__course_duration--value">{{duration| duration}}</span>
         </div>
     </div>
     <div class="add__course_buttons">
         <div class="add__course_button"
-             (click)="onSaveClick()">Save</div>
+             (click)="onSaveClick()">Save
+        </div>
         <div class="add__course_button" (click)="onCancelClick()">Cancel</div>
     </div>
 </div>

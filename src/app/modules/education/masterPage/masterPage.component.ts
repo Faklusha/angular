@@ -1,5 +1,5 @@
 import {Component, ViewEncapsulation, OnInit, ChangeDetectionStrategy} from '@angular/core';
-import { Router, RouterEvent, ActivatedRoute } from '@angular/router';
+import {Router, RouterEvent, ActivatedRoute} from '@angular/router';
 
 import {AuthenticationService} from '../services/authentication.service';
 import {CourseItem} from '../pages/courses/courseItem/courseItem.model';
@@ -19,6 +19,7 @@ export class MasterPageComponent implements OnInit {
     constructor(private router: Router, private authenticationService: AuthenticationService) {
     }
 
-    ngOnInit() {}
+    ngOnInit() {
+    }
 
 }

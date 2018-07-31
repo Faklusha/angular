@@ -22,7 +22,6 @@ describe('CoursesListComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [    RouterTestingModule.withRoutes(ROUTES)],
             declarations: [
                 CoursesListComponent,
                 CourseItemComponent,
@@ -34,6 +33,9 @@ describe('CoursesListComponent', () => {
                 HideDirective,
                 DurationPipe,
                 ConfirmationDialogComponent
+            ],
+            imports: [
+                RouterTestingModule.withRoutes([])
             ]
         });
     });
