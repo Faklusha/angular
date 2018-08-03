@@ -1,59 +1,26 @@
 import {Injectable} from '@angular/core';
 import {CourseItem} from '../courseItem/courseItem.model';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {Token} from '../../../services/token.model';
 
 @Injectable({
     providedIn: 'root'
 })
 export class CoursesListService {
+    private BASE_URL = 'http://localhost:3004';
+    private courses: CourseItem[] = [];
 
-    constructor() {
+    constructor(private http: HttpClient) {
     }
 
-    private courses = [
-        {
-            title: 'Video Course 1',
-            id: '1',
-            creationDate: '2019.07.07',
-            duration: '66',
-            description: ' Some big text that describe course bla-bla-bla',
-            topRated: true
-        },
-        {
-            title: 'Video Course 2',
-            id: '2',
-            creationDate: '2019.07.11',
-            duration: '122',
-            description: ' Some big text that describe course bla-bla-bla',
-            topRated: true
-        },
-        {
-            title: 'Video Course 3',
-            id: '3',
-            creationDate: '2019.07.04',
-            duration: '4',
-            description: ' Some big text that describe course bla-bla-bla',
-            topRated: false
-        },
-        {
-            title: 'Video Course 4',
-            id: '4',
-            creationDate: '2018.07.17',
-            duration: '140',
-            description: ' Some big text that describe course bla-bla-bla',
-            topRated: false
-        },
-        {
-            title: 'Video Course 5',
-            id: '5',
-            creationDate: '2019.07.01',
-            duration: '40',
-            description: ' Some big text that describe course bla-bla-bla',
-            topRated: false
-        },
-    ];
 
-    public getList(): CourseItem[] {
-        return this.courses;
+    public getCourses(startPosition: number, coursesCount: number, textFragment?: string): Observable<CourseItem[]> {
+        let query = `${this.BASE_URL}/courses?start=${startPosition}&count=${coursesCount}`;
+        if (textFragment) {
+            query = query + `&textFragment=${textFragment}`;
+        }
+        return this.http.get<CourseItem[]>(query);
     }
 
     public createCourse(course: CourseItem): CourseItem[] {
@@ -61,7 +28,7 @@ export class CoursesListService {
         return this.courses;
     }
 
-    public getCourse(id: string): CourseItem {
+    public getCourse(id: number): CourseItem {
         return this.courses.find(course => course.id === id);
     }
 
@@ -72,7 +39,7 @@ export class CoursesListService {
     }
 
 
-    public removeCourse(id: string): CourseItem[] {
+    public removeCourse(id: number): CourseItem[] {
         this.courses = this.courses.filter(course => course.id !== id);
         return this.courses;
     }

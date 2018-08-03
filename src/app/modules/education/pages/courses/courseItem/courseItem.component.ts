@@ -9,8 +9,8 @@ import {CourseItem} from './courseItem.model';
 })
 export class CourseItemComponent {
     @Input() public item: CourseItem;
-    @Output() removeItem = new EventEmitter<string>();
-    @Output() onAddNewClick = new EventEmitter<string>();
+    @Output() removeItem = new EventEmitter<number>();
+    @Output() onAddNewClick = new EventEmitter<number>();
 
     public isDialogOpened = false;
 

@@ -29,8 +29,8 @@ export class BreadcrumbsComponent implements OnInit {
             return this.item = 'add new Course';
         }
 
-        const currentCourse: CourseItem = this.coursesListService.getCourse(this.id);
-        this.item = currentCourse.title;
+        const currentCourse: CourseItem = this.coursesListService.getCourse(Number.parseInt(this.id));
+        this.item = currentCourse.name;
 
     }
 

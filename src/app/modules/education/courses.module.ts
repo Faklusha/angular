@@ -21,14 +21,18 @@ import {AddCourseComponent} from './pages/courses/addCourse/addCourse.component'
 import {NoFoundPageComponent} from './pages/noFoundPage/noFoundPage.component';
 import {ROUTES} from './courses.routes';
 import {CanActivateGuard} from './guards/canActivateGuard';
-
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import {AuthInterceptor} from './auth-interceptor';
 
 @NgModule({
     imports: [
         CommonModule,
-        RouterModule.forRoot(ROUTES, {useHash: true})
+        RouterModule.forRoot(ROUTES, {useHash: true}),
+        HttpClientModule,
     ],
-    providers: [CanActivateGuard],
+    providers: [CanActivateGuard,
+        { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    ],
     declarations: [
         AppComponent,
         MasterPageComponent,

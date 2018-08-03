@@ -16,13 +16,13 @@ export class HeaderComponent implements OnInit {
     ngOnInit() {
         this.isAuthenticated = this.authenticationService.isAuthenticated();
         if (this.isAuthenticated) {
-            this.userInfo = this.authenticationService.getUserInfo();
+            this.userInfo = this.authenticationService.getUserName();
         }
     }
 
     ngDoCheck() {
         this.isAuthenticated = this.authenticationService.isAuthenticated();
-        this.userInfo = this.isAuthenticated ? this.authenticationService.getUserInfo() : null;
+        this.userInfo = this.isAuthenticated ? this.authenticationService.getUserName() : null;
     }
 
 

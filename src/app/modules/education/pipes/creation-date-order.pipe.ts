@@ -8,8 +8,8 @@ import {CourseItem} from '../pages/courses/courseItem/courseItem.model';
 export class CreationDateOrderPipe implements PipeTransform {
     transform(courses: CourseItem[]) {
         return courses.sort((course, nextCourse) => {
-            const courseTime = new Date(course.creationDate).getTime();
-            const nextCourseTime = new Date(nextCourse.creationDate).getTime();
+            const courseTime = new Date(course.date).getTime();
+            const nextCourseTime = new Date(nextCourse.date).getTime();
             return courseTime - nextCourseTime;
         });
     }

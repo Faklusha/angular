@@ -12,11 +12,7 @@ import {CourseItem} from '../pages/courses/courseItem/courseItem.model';
     encapsulation: ViewEncapsulation.None
 })
 export class MasterPageComponent implements OnInit {
-    public isAuthenticated: boolean;
-    public isAddPage: boolean;
-    public currentItem?: CourseItem;
-
-    constructor(private router: Router, private authenticationService: AuthenticationService) {
+    constructor() {
     }
 
     ngOnInit() {

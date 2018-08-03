@@ -11,12 +11,12 @@ import {Router, ActivatedRoute} from '@angular/router';
 })
 export class AddCourseComponent implements OnInit {
     public item: CourseItem;
-    public id: string;
-    public title: string;
-    public creationDate: string;
-    public duration: string;
+    public id: number;
+    public name: string;
+    public date: string;
+    public length: number;
     public description: string;
-    public topRated: boolean;
+    public isTopRated: boolean;
 
     constructor(private router: Router, private route: ActivatedRoute, private coursesListService: CoursesListService) {
 
@@ -24,26 +24,26 @@ export class AddCourseComponent implements OnInit {
 
     ngOnInit() {
         this.route.params.subscribe((data) => {
-            this.id = data['id'];
+            this.id = Number.parseInt(data['id']);
         });
 
         this.item = this.coursesListService.getCourse(this.id);
 
-        this.title = this.item ? this.item.title : '';
-        this.creationDate = this.item ? this.item.creationDate : '';
-        this.duration = this.item ? this.item.duration : '';
+        this.name = this.item ? this.item.name : '';
+        this.date = this.item ? this.item.date : '';
+        this.length = this.item ? this.item.length : 0;
         this.description = this.item ? this.item.description : '';
-        this.topRated = this.item ? this.item.topRated : false;
+        this.isTopRated = this.item ? this.item.isTopRated : false;
     }
 
     onSaveClick = () => {
         const newItem = {
-            id: this.id || Math.random().toString(),
-            title: this.title,
-            creationDate: this.creationDate,
-            duration: this.duration,
+            id: this.id || Math.random(),
+            name: this.name,
+            date: this.date,
+            length: this.length,
             description: this.description,
-            topRated: this.topRated
+            isTopRated: this.isTopRated
         };
         if (this.item) {
             this.coursesListService.updateCourse(newItem);
@@ -57,7 +57,7 @@ export class AddCourseComponent implements OnInit {
         return this.router.navigate(['courses']);
     }
 
-    setDuration = (value: string) => this.duration = value;
+    setDuration = (value: number) => this.length = value;
 
     updateItem = target => this[target.name] = target.value;
 }

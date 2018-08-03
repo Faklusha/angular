@@ -6,6 +6,6 @@ import {CourseItem} from '../pages/courses/courseItem/courseItem.model';
 })
 export class SearchCoursesPipe implements PipeTransform {
     transform(courses: CourseItem[], value: string) {
-        return courses.filter((course) => course.title.toLowerCase().includes(value.toLowerCase()));
+        return courses.filter((course) => course.name.toLowerCase().includes(value.toLowerCase()));
     }
 }

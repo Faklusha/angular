@@ -13,6 +13,9 @@ import {Router} from '@angular/router';
 })
 export class CoursesListComponent implements OnInit {
     public courses;
+    private coursesCount: number;
+    private startPosition: number;
+    private textFragment?: string;
 
     constructor(private router: Router, private coursesListService: CoursesListService, private searchCourses: SearchCoursesPipe) {
     }
@@ -22,11 +25,15 @@ export class CoursesListComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log('ngOnInit');
-        this.courses = this.coursesListService.getList();
+        this.coursesCount = 7;
+        this.startPosition = 0;
+        this.textFragment = null;
+        this.coursesListService.getCourses(this.startPosition, this.coursesCount, this.textFragment).subscribe((res: CourseItem[]) => {
+            this.courses = res;
+        });
     }
 
-    ngDoCheck() {
+    ngDoCheck(props) {
         console.log('ngDoCheck');
     }
 
@@ -50,15 +57,21 @@ export class CoursesListComponent implements OnInit {
         console.log('ngOnDestroy');
     }
 
-    removeItem = (id: string) => {
+    removeItem = (id: number) => {
         this.courses = (this.coursesListService.removeCourse(id));
-    };
-
-    onLoadClick() {
-        console.log('load');
+        this.coursesListService.getCourses(0, this.startPosition, this.textFragment).subscribe((res: CourseItem[]) => {
+            this.courses = res;
+        });
     }
 
-    onAddNewClick(id?: string) {
+    onLoadClick() {
+        this.startPosition = this.startPosition + this.coursesCount;
+        this.coursesListService.getCourses(this.startPosition, this.coursesCount, this.textFragment).subscribe((res: CourseItem[]) => {
+            this.courses = this.courses.concat(res);
+        });
+    }
+
+    onAddNewClick(id?: number) {
         if (id) {
             return this.router.navigate(['courses', id]);
         }
@@ -66,10 +79,11 @@ export class CoursesListComponent implements OnInit {
     }
 
     onSearchClick = (value: string) => {
-        if (!value) {
-            this.courses = this.coursesListService.getList();
-        }
-        this.courses = this.searchCourses.transform(this.courses, value);
-    };
-
+        this.textFragment = value || null;
+        this.coursesCount = 7;
+        this.startPosition = 0;
+        this.coursesListService.getCourses(this.startPosition, this.startPosition, this.textFragment).subscribe((res: CourseItem[]) => {
+            this.courses = res;
+        });
+    }
 }

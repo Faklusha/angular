@@ -1,6 +1,9 @@
 import {Injectable} from '@angular/core';
 import {User} from './users.model';
 import {Router} from '@angular/router';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {Token} from './token.model';
 
 @Injectable({
     providedIn: 'root'
@@ -8,24 +11,28 @@ import {Router} from '@angular/router';
 export class AuthenticationService {
     public user: User;
     private tokenKey = 'app_token';
+    private BASE_URL = 'http://localhost:3004';
 
-    constructor(private router?: Router) {
+    constructor(private http: HttpClient, private router?: Router) {
+    }
+
+    private getUserToken(login: string, password: string): Observable<Token> {
+        return this.http.post<Token>(`${this.BASE_URL}/auth/login`, {login, password});
+    }
+
+    private getUser(): Observable<User> {
+        return this.http.post<User>(`${this.BASE_URL}/auth/userinfo`, {});
     }
 
     private store(token?: string) {
         localStorage.setItem(this.tokenKey, token);
     }
 
-    public login(name: string, password: string) {
-        console.log(name, password);
-        this.user = {
-            id: '1',
-            firstName: 'Ivan',
-            lastName: 'Ivanov'
-        };
-
-        this.store(`${this.user.id}_${this.user.firstName}_${this.user.lastName}`);
-        return this.router.navigate(['courses']);
+    public login(login: string, password: string) {
+        this.getUserToken(login, password).subscribe((res: Token) => {
+            this.store(res.token);
+            this.getUserInfo();
+        });
     }
 
     public logout() {
@@ -38,7 +45,14 @@ export class AuthenticationService {
         return this.user && !!localStorage.getItem(this.tokenKey);
     }
 
-    public getUserInfo(): string {
-        return this.user && this.user.firstName;
+    private getUserInfo() {
+        this.getUser().subscribe((user: User) => {
+            this.user = user;
+            this.router.navigate(['courses']);
+        });
+    }
+
+    public getUserName(): string {
+        return this.user && this.user.name.first;
     }
 }
