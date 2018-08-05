@@ -9,38 +9,67 @@ import {Token} from '../../../services/token.model';
 })
 export class CoursesListService {
     private BASE_URL = 'http://localhost:3004';
-    private courses: CourseItem[] = [];
+    public courses: CourseItem[] = [];
+    private coursesCount: number;
+    private startPosition: number;
+    private textFragment?: string;
+    public isErrorExist = false;
 
     constructor(private http: HttpClient) {
     }
 
-
-    public getCourses(startPosition: number, coursesCount: number, textFragment?: string): Observable<CourseItem[]> {
-        let query = `${this.BASE_URL}/courses?start=${startPosition}&count=${coursesCount}`;
-        if (textFragment) {
-            query = query + `&textFragment=${textFragment}`;
+    public getCourses(): Observable<CourseItem[]> {
+        let query = `${this.BASE_URL}/courses?start=${this.startPosition}&count=${this.coursesCount}`;
+        if (this.textFragment) {
+            query = query + `&textFragment=${this.textFragment}`;
         }
         return this.http.get<CourseItem[]>(query);
     }
 
-    public createCourse(course: CourseItem): CourseItem[] {
-        this.courses.push(course);
-        return this.courses;
+    public addCourse(course): void {
+        const query = `${this.BASE_URL}/courses/${course.id}`;
+        this.http.post<CourseItem[]>(query, {course}).subscribe((res: CourseItem[]) => {
+            console.log(res);
+        });
+    }
+
+    public updateCourse(course): void {
+        const query = `${this.BASE_URL}/courses/${course.id}`;
+        this.http.put<CourseItem[]>(query, {course}).subscribe((res: CourseItem[]) => {
+            console.log(res);
+        });
+    }
+
+    public getList() {
+        this.coursesCount = 7;
+        this.startPosition = 0;
+        this.textFragment = null;
+
+        this.getCourses().subscribe((res: CourseItem[]) => {
+            this.courses = res;
+        })
+    }
+
+    public loadList() {
+        this.startPosition = this.startPosition + this.coursesCount;
+        this.getCourses().subscribe((res: CourseItem[]) => {
+            this.courses = this.courses.concat(res);
+        });
+    }
+
+    public searchList(textFragment?: string) {
+        this.textFragment = textFragment || null;
+        this.startPosition = 0;
+        this.getCourses().subscribe((res: CourseItem[]) => {
+            this.courses = res;
+        });
     }
 
     public getCourse(id: number): CourseItem {
         return this.courses.find(course => course.id === id);
     }
 
-    public updateCourse(updatedCourse: CourseItem): CourseItem[] {
-        this.courses = this.courses.filter(course => course.id !== updatedCourse.id);
-        this.courses.push(updatedCourse);
-        return this.courses;
-    }
-
-
-    public removeCourse(id: number): CourseItem[] {
+    public removeCourse(id: number): void {
         this.courses = this.courses.filter(course => course.id !== id);
-        return this.courses;
     }
 }
