@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
 import {User} from './users.model';
 import {Router} from '@angular/router';
-import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {Observable, throwError} from 'rxjs';
+import {catchError} from 'rxjs/operators';
 import {Token} from './token.model';
 
 @Injectable({
@@ -17,11 +18,17 @@ export class AuthenticationService {
     }
 
     private getUserToken(login: string, password: string): Observable<Token> {
-        return this.http.post<Token>(`${this.BASE_URL}/auth/login`, {login, password});
+        return this.http.post<Token>(`${this.BASE_URL}/auth/login`, {login, password})
+            .pipe(
+                catchError(this.handleError)
+            );
     }
 
     private getUser(): Observable<User> {
-        return this.http.post<User>(`${this.BASE_URL}/auth/userinfo`, {});
+        return this.http.post<User>(`${this.BASE_URL}/auth/userinfo`, {})
+            .pipe(
+                catchError(this.handleError)
+            );
     }
 
     private store(token?: string) {
@@ -54,5 +61,17 @@ export class AuthenticationService {
 
     public getUserName(): string {
         return this.user && this.user.name.first;
+    }
+
+    private handleError(error: HttpErrorResponse) {
+        if (error.error instanceof ErrorEvent) {
+            console.error('An error occurred:', error.error.message);
+        } else {
+            console.error(
+                `Backend returned code ${error.status}, ` +
+                `body was: ${error.error}`);
+        }
+        return throwError(
+            'Something bad happened; please try again later.');
     }
 }
