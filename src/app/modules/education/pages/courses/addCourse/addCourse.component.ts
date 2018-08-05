@@ -7,7 +7,6 @@ import {Router, ActivatedRoute} from '@angular/router';
     selector: 'app-add',
     templateUrl: './addCourse.component.html',
     styleUrls: ['./addCourse.component.css'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AddCourseComponent implements OnInit {
     public item: CourseItem;
@@ -45,19 +44,18 @@ export class AddCourseComponent implements OnInit {
             description: this.description,
             isTopRated: this.isTopRated
         };
-        if (this.item) {
-            this.coursesListService.updateCourse(newItem);
-        } else {
-            this.coursesListService.createCourse(newItem);
-        }
+        this.coursesListService.addCourse(newItem);
         this.onCancelClick();
-    }
+    };
 
     onCancelClick = () => {
         return this.router.navigate(['courses']);
+    };
+
+    updateItem = target => {
+        if (target.name === 'length') {
+           return this.length = Number.parseInt(target.value) || 0;
+        }
+        this[target.name] = target.value;
     }
-
-    setDuration = (value: number) => this.length = value;
-
-    updateItem = target => this[target.name] = target.value;
 }

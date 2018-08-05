@@ -8,7 +8,6 @@ import {CourseItem} from '../pages/courses/courseItem/courseItem.model';
     selector: 'app-master-page',
     templateUrl: './masterPage.component.html',
     styleUrls: ['./masterPage.component.css'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
 export class MasterPageComponent implements OnInit {

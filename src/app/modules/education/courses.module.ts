@@ -14,7 +14,6 @@ import {StyleByDateDirective} from './directives/style-by-date.directive';
 import {HideDirective} from './directives/hide.directive';
 import {DurationPipe} from './pipes/duration.pipe';
 import {CreationDateOrderPipe} from './pipes/creation-date-order.pipe';
-import {SearchCoursesPipe} from './pipes/search-courses.pipe';
 import {ConfirmationDialogComponent} from './general/confirmationDialog/confirmationDialog.component';
 import {LoginFormComponent} from './general/loginForm/loginForm.component';
 import {AddCourseComponent} from './pages/courses/addCourse/addCourse.component';
@@ -46,7 +45,6 @@ import {AuthInterceptor} from './auth-interceptor';
         HideDirective,
         DurationPipe,
         CreationDateOrderPipe,
-        SearchCoursesPipe,
         ConfirmationDialogComponent,
         LoginFormComponent,
         AddCourseComponent,

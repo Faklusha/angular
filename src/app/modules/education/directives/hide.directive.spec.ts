@@ -5,7 +5,6 @@ import {DebugElement} from '@angular/core';
 import {By} from '@angular/platform-browser';
 import {CourseItemComponent} from '../pages/courses/courseItem/courseItem.component';
 import {HideDirective} from './hide.directive';
-import {SearchCoursesPipe} from '../pipes/search-courses.pipe';
 import {CreationDateOrderPipe} from '../pipes/creation-date-order.pipe';
 import {StyleByDateDirective} from './style-by-date.directive';
 import {DurationPipe} from '../pipes/duration.pipe';
@@ -23,7 +22,6 @@ describe('Derective: Hide', () => {
                 CoursesListComponent,
                 CourseItemComponent,
                 HideDirective,
-                SearchCoursesPipe,
                 CreationDateOrderPipe,
                 StyleByDateDirective,
                 HideDirective,

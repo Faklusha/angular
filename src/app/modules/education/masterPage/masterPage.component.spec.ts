@@ -6,7 +6,6 @@ import {LogoComponent} from '../general/logo/logo.component';
 import {CourseItemComponent} from '../pages/courses/courseItem/courseItem.component';
 import {CoursesListComponent} from '../pages/courses/coursesList/coursesList.component';
 import {HeaderComponent} from '../general/header/header.component';
-import {SearchCoursesPipe} from '../pipes/search-courses.pipe';
 import {StyleByDateDirective} from '../directives/style-by-date.directive';
 import {HideDirective} from '../directives/hide.directive';
 import {CreationDateOrderPipe} from '../pipes/creation-date-order.pipe';
@@ -31,7 +30,6 @@ describe('CoursesPage', () => {
                 CourseItemComponent,
                 FooterComponent,
                 HideDirective,
-                SearchCoursesPipe,
                 CreationDateOrderPipe,
                 StyleByDateDirective,
                 HideDirective,

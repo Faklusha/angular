@@ -5,44 +5,44 @@ describe('Pipe: CreationDateOrder', () => {
 
     const courses = [
         {
-            title: 'Video Course 1',
-            id: '1',
-            creationDate: 'July 07 2018',
-            duration: '66',
+            name: 'Video Course 1',
+            id: 1,
+            date: 'July 07 2018',
+            length: 66,
             description: ' Some big text that describe course bla-bla-bla',
-            topRated: true
+            isTopRated: true
         },
         {
-            title: 'Video Course 2',
-            id: '2',
-            creationDate: 'July 11 2018',
-            duration: '122',
+            name: 'Video Course 2',
+            id: 2,
+            date: 'July 11 2018',
+            length: 122,
             description: ' Some big text that describe course bla-bla-bla',
-            topRated: true
+            isTopRated: true
         },
         {
-            title: 'Video Course 3',
-            id: '3',
-            creationDate: 'July 04 2018',
-            duration: '4',
+            name: 'Video Course 3',
+            id: 3,
+            date: 'July 04 2018',
+            length: 4,
             description: ' Some big text that describe course bla-bla-bla',
-            topRated: false
+            isTopRated: false
         },
         {
-            title: 'Video Course 4',
-            id: '4',
-            creationDate: 'July 17 2018',
-            duration: '140',
+            name: 'Video Course 4',
+            id: 4,
+            date: 'July 17 2018',
+            duration: 140,
             description: ' Some big text that describe course bla-bla-bla',
-            topRated: false
+            isTopRated: false
         },
         {
-            title: 'Video Course 5',
-            id: '5',
-            creationDate: 'July 01 2019',
-            duration: '40',
+            name: 'Video Course 5',
+            id: 5,
+            date: 'July 01 2019',
+            length: 40,
             description: ' Some big text that describe course bla-bla-bla',
-            topRated: false
+            isTopRated: false
         },
     ];
 
@@ -54,8 +54,8 @@ describe('Pipe: CreationDateOrder', () => {
         const orderedCourses = pipe.transform(courses);
 
         for (let i = 0; i < orderedCourses.length - 1; i++) {
-            const courseTime = new Date(orderedCourses[i].creationDate).getTime();
-            const nextCourseTime = new Date(orderedCourses[i + 1].creationDate).getTime();
+            const courseTime = new Date(orderedCourses[i].date).getTime();
+            const nextCourseTime = new Date(orderedCourses[i + 1].date).getTime();
             expect(courseTime).toBeLessThanOrEqual(nextCourseTime);
         }
     });

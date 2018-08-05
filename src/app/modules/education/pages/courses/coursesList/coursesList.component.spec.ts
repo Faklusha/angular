@@ -4,7 +4,6 @@ import {CoursesListComponent} from './coursesList.component';
 import {DebugElement} from '@angular/core';
 import {By} from '@angular/platform-browser';
 import {CourseItemComponent} from '../courseItem/courseItem.component';
-import {SearchCoursesPipe} from '../../../pipes/search-courses.pipe';
 import {HideDirective} from '../../../directives/hide.directive';
 import {CreationDateOrderPipe} from '../../../pipes/creation-date-order.pipe';
 import {StyleByDateDirective} from '../../../directives/style-by-date.directive';
@@ -26,7 +25,6 @@ describe('CoursesListComponent', () => {
                 CoursesListComponent,
                 CourseItemComponent,
                 HideDirective,
-                SearchCoursesPipe,
                 CreationDateOrderPipe,
                 StyleByDateDirective,
                 BreadcrumbsComponent,

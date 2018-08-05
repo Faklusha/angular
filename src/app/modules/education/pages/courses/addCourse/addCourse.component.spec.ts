@@ -32,10 +32,10 @@ describe('AddCourseComponent', () => {
     beforeEach(() => {
         item = new CourseItem();
 
-        item.id = '1';
-        item.title = 'Title';
-        item.creationDate = 'July 7 2018';
-        item.duration = '105';
+        item.id = 1;
+        item.name = 'Title';
+        item.date = 'July 7 2018';
+        item.length = 105;
         item.description = 'Description';
         saveSpy = jasmine.createSpy('onSaveClick');
         cancelSpy = jasmine.createSpy('onCancelClick');
@@ -132,18 +132,5 @@ describe('AddCourseComponent', () => {
             .triggerEventHandler('click', null);
 
         expect(cancelSpy).toHaveBeenCalled();
-    });
-
-    it('should set new duration value on duration value change', () => {
-        fixture.detectChanges();
-        sut.setDuration = setDurationSpy;
-        const debugElement: DebugElement = fixture.debugElement;
-
-        debugElement
-            .query(By.css('.add__course_duration--input'))
-            .triggerEventHandler('change', '88');
-        fixture.detectChanges();
-
-        expect(setDurationSpy).toHaveBeenCalled();
     });
 });
