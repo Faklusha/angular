@@ -11,6 +11,7 @@ import {DurationPipe} from '../pipes/duration.pipe';
 import {ConfirmationDialogComponent} from '../general/confirmationDialog/confirmationDialog.component';
 import {BreadcrumbsComponent} from '../general/breadcrumbs/breadcrumbs.component';
 import {RouterTestingModule} from '@angular/router/testing';
+import {HttpClientModule} from '@angular/common/http';
 
 describe('Derective: Hide', () => {
     let sut: CoursesListComponent;
@@ -29,7 +30,8 @@ describe('Derective: Hide', () => {
                 ConfirmationDialogComponent,
                 BreadcrumbsComponent
             ], imports: [
-                RouterTestingModule.withRoutes([])
+                RouterTestingModule.withRoutes([]),
+                HttpClientModule
             ]
         });
     });
@@ -37,14 +39,6 @@ describe('Derective: Hide', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(CoursesListComponent); // abstraction used for test
         sut = fixture.componentInstance;
-    });
-
-    it('should show correct load button title for data', () => {
-        fixture.detectChanges();
-        const debugElement: DebugElement = fixture.debugElement;
-        const buttonDebugElement = debugElement.query(By.css('.list__button'));
-        const button = buttonDebugElement.nativeElement;
-        expect(button.textContent).toBe('LOAD MORE');
     });
 
     it('should show correct load button title for no data', () => {

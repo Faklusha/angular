@@ -11,13 +11,11 @@ import {DurationPipe} from '../../../pipes/duration.pipe';
 import {ConfirmationDialogComponent} from '../../../general/confirmationDialog/confirmationDialog.component';
 import {BreadcrumbsComponent} from '../../../general/breadcrumbs/breadcrumbs.component';
 import {RouterTestingModule} from '@angular/router/testing';
-import {ROUTES} from '../../../courses.routes';
+import {HttpClientModule} from '@angular/common/http';
 
 describe('CoursesListComponent', () => {
     let sut: CoursesListComponent;
     let fixture: ComponentFixture<CoursesListComponent>;
-    let loadSpy;
-    let searchSpy;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -33,7 +31,8 @@ describe('CoursesListComponent', () => {
                 ConfirmationDialogComponent
             ],
             imports: [
-                RouterTestingModule.withRoutes([])
+                RouterTestingModule.withRoutes([]),
+                HttpClientModule
             ]
         });
     });
@@ -41,20 +40,8 @@ describe('CoursesListComponent', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(CoursesListComponent); // abstraction used for test
         sut = fixture.componentInstance;
-        loadSpy = jasmine.createSpy('onLoadClick');
-        sut.onLoadClick = loadSpy;
-        searchSpy = jasmine.createSpy('onSearchClick');
-        sut.onSearchClick = searchSpy;
     });
 
-    it('should call spy on load click', () => {
-        fixture.detectChanges();
-        const debugElement: DebugElement = fixture.debugElement;
-        debugElement
-            .query(By.css('.list__button'))
-            .triggerEventHandler('click', null);
-        expect(loadSpy).toHaveBeenCalled();
-    });
 
     it('should show correct add button title', () => {
         fixture.detectChanges();
@@ -72,12 +59,4 @@ describe('CoursesListComponent', () => {
         expect(button.textContent).toBe('Search');
     });
 
-    it('should call on search click', () => {
-        fixture.detectChanges();
-        const debugElement: DebugElement = fixture.debugElement;
-        debugElement
-            .query(By.css('.search__button'))
-            .triggerEventHandler('click', null);
-        expect(searchSpy).toHaveBeenCalled();
-    });
 });

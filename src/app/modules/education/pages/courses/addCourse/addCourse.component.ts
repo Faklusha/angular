@@ -37,7 +37,7 @@ export class AddCourseComponent implements OnInit {
 
     onSaveClick = () => {
         const newItem = {
-            id: this.id || Math.random(),
+            id: this.id || Math.floor(Math.random() * (999 - 300)),
             name: this.name,
             date: this.date,
             length: this.length,
@@ -46,15 +46,15 @@ export class AddCourseComponent implements OnInit {
         };
         this.coursesListService.addCourse(newItem);
         this.onCancelClick();
-    };
+    }
 
     onCancelClick = () => {
         return this.router.navigate(['courses']);
-    };
+    }
 
     updateItem = target => {
         if (target.name === 'length') {
-           return this.length = Number.parseInt(target.value) || 0;
+            return this.length = Number.parseInt(target.value) || 0;
         }
         this[target.name] = target.value;
     }

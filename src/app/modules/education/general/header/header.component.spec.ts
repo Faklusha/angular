@@ -4,6 +4,7 @@ import {By} from '@angular/platform-browser';
 import {DebugElement} from '@angular/core';
 import {LogoComponent} from '../logo/logo.component';
 import {RouterTestingModule} from '@angular/router/testing';
+import {HttpClientModule} from '@angular/common/http';
 
 describe('HeaderComponent', () => {
     let sut: HeaderComponent;
@@ -13,7 +14,8 @@ describe('HeaderComponent', () => {
         TestBed.configureTestingModule({
             declarations: [HeaderComponent, LogoComponent],
             imports: [
-                RouterTestingModule.withRoutes([])
+                RouterTestingModule.withRoutes([]),
+                HttpClientModule
             ]
         });
     });

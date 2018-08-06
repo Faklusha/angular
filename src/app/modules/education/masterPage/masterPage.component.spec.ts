@@ -14,6 +14,7 @@ import {LoginFormComponent} from '../general/loginForm/loginForm.component';
 import {ConfirmationDialogComponent} from '../general/confirmationDialog/confirmationDialog.component';
 import {AddCourseComponent} from '../pages/courses/addCourse/addCourse.component';
 import {RouterTestingModule} from '@angular/router/testing';
+import {HttpClientModule} from '@angular/common/http';
 
 describe('CoursesPage', () => {
     let sut: MasterPageComponent;
@@ -40,6 +41,7 @@ describe('CoursesPage', () => {
             ],
             imports: [
                 RouterTestingModule.withRoutes([]),
+                HttpClientModule
             ]
         }).compileComponents();
     }));

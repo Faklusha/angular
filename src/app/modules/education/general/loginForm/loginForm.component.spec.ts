@@ -3,6 +3,7 @@ import {By} from '@angular/platform-browser';
 import {DebugElement} from '@angular/core';
 import {LoginFormComponent} from './loginForm.component';
 import {RouterTestingModule} from '@angular/router/testing';
+import {HttpClientModule} from '@angular/common/http';
 
 describe('LoginFormComponent', () => {
     let sut: LoginFormComponent;
@@ -13,7 +14,8 @@ describe('LoginFormComponent', () => {
         TestBed.configureTestingModule({
             declarations: [LoginFormComponent],
             imports: [
-                RouterTestingModule.withRoutes([])
+                RouterTestingModule.withRoutes([]),
+                HttpClientModule
             ]
         });
     });

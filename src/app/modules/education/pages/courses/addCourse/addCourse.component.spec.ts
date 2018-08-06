@@ -7,6 +7,7 @@ import {AddCourseComponent} from './addCourse.component';
 import {CourseItem} from '../courseItem/courseItem.model';
 import {BreadcrumbsComponent} from '../../../general/breadcrumbs/breadcrumbs.component';
 import {RouterTestingModule} from '@angular/router/testing';
+import {HttpClientModule} from '@angular/common/http';
 
 describe('AddCourseComponent', () => {
     let sut: AddCourseComponent;
@@ -24,7 +25,8 @@ describe('AddCourseComponent', () => {
                 BreadcrumbsComponent
             ],
             imports: [
-                RouterTestingModule.withRoutes([])
+                RouterTestingModule.withRoutes([]),
+                HttpClientModule
             ]
         });
     });

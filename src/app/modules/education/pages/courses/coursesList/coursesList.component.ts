@@ -11,7 +11,7 @@ import {Router} from '@angular/router';
 export class CoursesListComponent implements OnInit {
     public courses;
 
-    constructor(private router: Router, private coursesListService: CoursesListService, private searchCourses: SearchCoursesPipe) {
+    constructor(private router: Router, private coursesListService: CoursesListService) {
     }
 
     ngOnInit() {
@@ -22,11 +22,11 @@ export class CoursesListComponent implements OnInit {
 
     ngDoCheck() {
         this.courses = this.coursesListService.courses;
-}
+    }
 
-removeItem = (id: number) => {
-    this.coursesListService.removeCourse(id);
-}
+    removeItem = (id: number) => {
+        this.coursesListService.removeCourse(id);
+    }
 
     onLoadClick() {
         this.coursesListService.loadList();

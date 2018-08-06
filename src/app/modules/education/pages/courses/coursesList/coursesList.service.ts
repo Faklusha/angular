@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
 import {CourseItem} from '../courseItem/courseItem.model';
-import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {Observable, throwError} from 'rxjs';
 import {Token} from '../../../services/token.model';
+import {catchError} from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -23,7 +24,10 @@ export class CoursesListService {
         if (this.textFragment) {
             query = query + `&textFragment=${this.textFragment}`;
         }
-        return this.http.get<CourseItem[]>(query);
+        return this.http.get<CourseItem[]>(query)
+            .pipe(
+                catchError(this.handleError)
+            );
     }
 
     public addCourse(course): void {
@@ -31,13 +35,8 @@ export class CoursesListService {
         this.http.post<CourseItem[]>(query, {course}).subscribe((res: CourseItem[]) => {
             console.log(res);
         });
-    }
 
-    public updateCourse(course): void {
-        const query = `${this.BASE_URL}/courses/${course.id}`;
-        this.http.put<CourseItem[]>(query, {course}).subscribe((res: CourseItem[]) => {
-            console.log(res);
-        });
+        // this.http.post<CourseItem[]>(query, {course});
     }
 
     public getList() {
@@ -47,7 +46,7 @@ export class CoursesListService {
 
         this.getCourses().subscribe((res: CourseItem[]) => {
             this.courses = res;
-        })
+        });
     }
 
     public loadList() {
@@ -71,5 +70,17 @@ export class CoursesListService {
 
     public removeCourse(id: number): void {
         this.courses = this.courses.filter(course => course.id !== id);
+    }
+
+    private handleError(error: HttpErrorResponse) {
+        if (error.error instanceof ErrorEvent) {
+            console.error('An error occurred:', error.error.message);
+        } else {
+            console.error(
+                `Backend returned code ${error.status}, ` +
+                `body was: ${error.error}`);
+        }
+        return throwError(
+            'Something bad happened; please try again later.');
     }
 }

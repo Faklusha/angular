@@ -3,6 +3,7 @@ import {DebugElement} from '@angular/core';
 import {BreadcrumbsComponent} from './breadcrumbs.component';
 import {By} from '@angular/platform-browser';
 import {RouterTestingModule} from '@angular/router/testing';
+import {HttpClientModule} from '@angular/common/http';
 
 describe('BreadcrumbsComponent', () => {
     let sut: BreadcrumbsComponent;
@@ -12,7 +13,8 @@ describe('BreadcrumbsComponent', () => {
         TestBed.configureTestingModule({
             declarations: [BreadcrumbsComponent],
             imports: [
-                RouterTestingModule.withRoutes([])
+                RouterTestingModule.withRoutes([]),
+                HttpClientModule,
             ]
         });
     });
