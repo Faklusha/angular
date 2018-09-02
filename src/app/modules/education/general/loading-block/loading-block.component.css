@@ -1,0 +1,15 @@
+.loading-block {
+    background-color: #00000070;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loading-block__label {
+    font-size: 40px;
+    font-weight: 700;
+}

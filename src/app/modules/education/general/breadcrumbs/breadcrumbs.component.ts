@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {CoursesListService} from '../../pages/courses/coursesList/coursesList.service';
 import {CourseItem} from '../../pages/courses/courseItem/courseItem.model';
+import {Store} from '@ngrx/store';
+import * as fromRoot from '../../reducers/CourseReducer';
 
 @Component({
     selector: 'app-breadcrumbs',
@@ -11,15 +13,22 @@ import {CourseItem} from '../../pages/courses/courseItem/courseItem.model';
 export class BreadcrumbsComponent implements OnInit {
     public id: string;
     public item?: string;
-
-    constructor(private route: ActivatedRoute, private coursesListService: CoursesListService) {
+    private subsc;
+    public courses;
+    private courses$;
+    constructor(private route: ActivatedRoute, private coursesListService: CoursesListService,  private store: Store<fromRoot.State>){
+        this.courses$ = this.store.select(fromRoot.getCourses);
     }
 
+
     ngOnInit() {
-        this.route.params.subscribe((data) => {
+this.route.params.subscribe((data) => {
             this.id = data['id'];
         });
 
+        this.subsc = this.courses$.subscribe((state) => {
+            this.courses = state.coursesState.courses;
+        });
 
         if (!this.id) {
             return;
@@ -29,9 +38,17 @@ export class BreadcrumbsComponent implements OnInit {
             return this.item = 'add new Course';
         }
 
-        const currentCourse: CourseItem = this.coursesListService.getCourse(Number.parseInt(this.id));
+        const currentCourse: CourseItem = this.getCurrentCourse();
         this.item = currentCourse.name;
 
+    }
+
+    getCurrentCourse() {
+        return this.id && this.courses.find(course => course.id === Number.parseInt(this.id));
+    }
+
+    ngOnDestroy() {
+        this.subsc.unsubscribe();
     }
 
 }

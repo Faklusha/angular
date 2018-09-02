@@ -2,21 +2,30 @@
 import {CanActivate, Router} from '@angular/router';
 import {Observable} from 'rxjs';
 import {AuthenticationService} from '../services/authentication.service';
+import {User} from '../services/users.model';
+import * as fromRoot from '../reducers/AuthReducer';
+import {Store} from '@ngrx/store';
 
 
 @Injectable()
 export class CanActivateGuard implements CanActivate {
-    constructor(private authenticationService: AuthenticationService, private router: Router) {
+    private tokenKey = 'app_token';
+    public isAuthenticated$;
+ constructor(private store: Store<fromRoot.State>, private authenticationService: AuthenticationService, private router: Router) {
+     this.isAuthenticated$ = this.store.select(fromRoot.getUser);
 
     }
 
     canActivate(): Observable<boolean> | Promise<boolean> | boolean {
-        const isAuthenticated = this.authenticationService.isAuthenticated();
 
-        if (isAuthenticated) {
-            return true;
-        }
-        this.router.navigate(['login']);
-        return false;
+       this.isAuthenticated$.subscribe((state) => {
+            if (!state.authState.isAuthenticated) {
+                this.router.navigate(['login']);
+            }
+         });
+
+        return new Observable<boolean>(observer => {
+            observer.next(!!localStorage.getItem(this.tokenKey));
+        });
     }
 }

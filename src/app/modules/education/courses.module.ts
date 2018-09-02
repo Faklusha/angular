@@ -22,12 +22,22 @@ import {ROUTES} from './courses.routes';
 import {CanActivateGuard} from './guards/canActivateGuard';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import {AuthInterceptor} from './auth-interceptor';
+import {LoadingBlockComponent} from './general/loading-block/loading-block.component';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { StoreModule } from '@ngrx/store';
+import {AuthReducer} from './reducers/AuthReducer';
+import {CourseReducer} from './reducers/CourseReducer';
 
 @NgModule({
     imports: [
         CommonModule,
         RouterModule.forRoot(ROUTES, {useHash: true}),
         HttpClientModule,
+
+        StoreModule.forRoot({authState: AuthReducer, coursesState: CourseReducer}),
+        StoreDevtoolsModule.instrument({
+            name: 'NgRx DevTools',
+        }),
     ],
     providers: [CanActivateGuard,
         { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
@@ -48,7 +58,8 @@ import {AuthInterceptor} from './auth-interceptor';
         ConfirmationDialogComponent,
         LoginFormComponent,
         AddCourseComponent,
-        NoFoundPageComponent
+        NoFoundPageComponent,
+        LoadingBlockComponent
     ],
     exports: [
         AppComponent,
@@ -61,7 +72,8 @@ import {AuthInterceptor} from './auth-interceptor';
         FooterComponent,
         ConfirmationDialogComponent,
         AddCourseComponent,
-        NoFoundPageComponent
+        NoFoundPageComponent,
+        LoadingBlockComponent
     ]
 })
 export class CoursesModule {

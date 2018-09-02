@@ -1,5 +1,8 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {AuthenticationService} from '../../services/authentication.service';
+import {User} from '../../services/users.model';
+import {Store} from '@ngrx/store';
+import * as fromRoot from '../../reducers/AuthReducer';
 
 @Component({
     selector: 'app-header',
@@ -8,21 +11,32 @@ import {AuthenticationService} from '../../services/authentication.service';
 })
 export class HeaderComponent implements OnInit {
     public isAuthenticated;
-    public userInfo;
+    public user$;
+    public userInfo = null;
+    private subsc;
 
-    constructor(private authenticationService: AuthenticationService) {
+    constructor(private authenticationService: AuthenticationService, private store: Store<fromRoot.State>) {
+        this.user$ = this.store.select(fromRoot.getUser);
+
+// this.authenticationService.user.subscribe(
+        //     (user: User) => {
+        //         this.userInfo = user && user.name.first;
+        //     });
     }
 
-    ngOnInit() {
-        this.isAuthenticated = this.authenticationService.isAuthenticated();
-        if (this.isAuthenticated) {
-            this.userInfo = this.authenticationService.getUserName();
-        }
+    ngOnInit() {// this.isAuthenticated = this.authenticationService.isAuthenticated();
+       this.subsc = this.user$.subscribe((state) => {
+            const user = state.authState.user;
+            this.isAuthenticated = state.authState.isAuthenticated;
+           this.userInfo = user && user.name.first;
+       });
     }
 
     ngDoCheck() {
-        this.isAuthenticated = this.authenticationService.isAuthenticated();
-        this.userInfo = this.isAuthenticated ? this.authenticationService.getUserName() : null;
+    }
+
+    ngOnDestroy() {
+        this.subsc.unsubscribe();
     }
 
 
