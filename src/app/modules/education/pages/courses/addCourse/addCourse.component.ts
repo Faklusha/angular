@@ -3,7 +3,7 @@ import {CoursesListService} from '../coursesList/coursesList.service';
 import {CourseItem} from '../courseItem/courseItem.model';
 import {Router, ActivatedRoute} from '@angular/router';
 import {Store} from '@ngrx/store';
-import * as fromRoot from '../../../reducers/CourseReducer';
+import * as fromRoot from '../coursesList/reducers/CoursesReducer';
 
 @Component({
     selector: 'app-add',
@@ -19,10 +19,12 @@ export class AddCourseComponent implements OnInit {
     public description: string;
     public isTopRated: boolean;
     private courses$;
-    private subsc;
-    private courses;
+    private subscription;
+    private courses: CourseItem[];
 
-    constructor(private router: Router, private route: ActivatedRoute, private coursesListService: CoursesListService, private store: Store<fromRoot.State>) {
+    constructor(private router: Router, private route: ActivatedRoute,
+                private coursesListService: CoursesListService,
+                private store: Store<fromRoot.State>) {
         this.courses$ = this.store.select(fromRoot.getCourses);
 
     }
@@ -33,7 +35,7 @@ export class AddCourseComponent implements OnInit {
             this.id = Number.parseInt(data['id']);
         });
 
-        this.subsc = this.courses$.subscribe((state) => {
+        this.subscription = this.courses$.subscribe((state) => {
             this.courses = state.coursesState.courses;
         });
 
@@ -75,6 +77,6 @@ export class AddCourseComponent implements OnInit {
     }
 
     ngOnDestroy() {
-        this.subsc.unsubscribe();
+        this.subscription.unsubscribe();
     }
 }

@@ -1,5 +1,5 @@
-import { Action } from '@ngrx/store';
-import {User} from '../services/users.model';
+import {Action} from '@ngrx/store';
+import {User} from '../users.model';
 
 export enum AuthenticationActionTypes {
     SetNewUser = '[Authentication] Set new user',
@@ -8,8 +8,9 @@ export enum AuthenticationActionTypes {
 
 export class SetNewUser implements Action {
     readonly type = AuthenticationActionTypes.SetNewUser;
-    constructor(public user: User ) {
-}
+
+    constructor(public user: User) {
+    }
 }
 
 export class RemoveUser implements Action {

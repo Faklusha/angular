@@ -1,12 +1,5 @@
-import {User} from '../services/users.model';
+import {User} from '../users.model';
 import {AuthenticationActions, AuthenticationActionTypes} from '../actions/AuthActions';
-import {
-    ActionReducerMap,
-    createSelector,
-    createFeatureSelector,
-    ActionReducer,
-    MetaReducer,
-} from '@ngrx/store';
 
 export interface State {
     user?: User;
@@ -21,10 +14,8 @@ const initialState: State = {
     isAuthenticated: !!localStorage.getItem(tokenKey),
 };
 
-export function AuthReducer(
-    state: State = initialState,
-    action: AuthenticationActions
-): State {
+export function AuthReducer(state: State = initialState,
+                            action: AuthenticationActions): State {
     console.log(action);
     switch (action.type) {
         case AuthenticationActionTypes.SetNewUser:

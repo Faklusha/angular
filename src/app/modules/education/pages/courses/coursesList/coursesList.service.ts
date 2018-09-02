@@ -2,18 +2,17 @@ import {Injectable} from '@angular/core';
 import {CourseItem} from '../courseItem/courseItem.model';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
-import {Token} from '../../../services/token.model';
 import {catchError} from 'rxjs/operators';
 import {LoadingBlockService} from '../../../general/loading-block/loading-block.service';
-import * as fromRoot from '../../../reducers/CourseReducer';
+import * as fromRoot from './reducers/CoursesReducer';
 import {Store} from '@ngrx/store';
-import * as CoursesActions from '../../../actions/CourseActions';
+import * as CoursesActions from './actions/CoursesActions';
+import {HttpService} from '../../../services/http/http.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class CoursesListService {
-    private BASE_URL = 'http://localhost:3004';
     public courses: CourseItem[] = [];
     private coursesCount: number;
     private startPosition: number;
@@ -21,7 +20,10 @@ export class CoursesListService {
     public isErrorExist = false;
     private courses$;
 
-    constructor(private http: HttpClient, private loadingBlockService: LoadingBlockService, private store: Store<fromRoot.State>) {
+    constructor(private http: HttpClient,
+                private loadingBlockService: LoadingBlockService,
+                private httpService: HttpService,
+                private store: Store<fromRoot.State>) {
         this.courses$ = this.store.select(fromRoot.getCourses);
     }
 
@@ -38,7 +40,7 @@ export class CoursesListService {
     }
 
     public getCourses(): Observable<CourseItem[]> {
-        let query = `${this.BASE_URL}/courses?start=${this.startPosition}&count=${this.coursesCount}`;
+        let query = `${this.httpService.BASE_URL}/courses?start=${this.startPosition}&count=${this.coursesCount}`;
         if (this.textFragment) {
             query = query + `&textFragment=${this.textFragment}`;
         }
@@ -46,17 +48,16 @@ export class CoursesListService {
 
         return this.http.get<CourseItem[]>(query)
             .pipe(
-                catchError(this.handleError)
+                catchError(this.httpService.handleError)
             );
     }
 
     public addCourse(course): void {
-        const query = `${this.BASE_URL}/courses/${course.id}`;
+        const query = `${this.httpService.BASE_URL}/courses/${course.id}`;
         this.loadingBlockService.toggleLoadingBlock(true);
 
         this.http.post<CourseItem[]>(query, {course}).subscribe((res: CourseItem[]) => {
-            console.log(res);
-            catchError(this.handleError);
+            catchError(this.httpService.handleError);
         });
     }
 
@@ -86,29 +87,5 @@ export class CoursesListService {
             this.loadingBlockService.toggleLoadingBlock(false);
             this.updateCourses(res);
         });
-    }
-
-
-
-    // public getCourse(id: number): CourseItem {
-    //     return this.courses.find(course => course.id === id);
-    // }
-
-    // public removeCourse(id: number): void {
-    //     this.courses = this.courses.filter(course => course.id !== id);
-    // }
-
-    private handleError(error: HttpErrorResponse) {
-        this.loadingBlockService.toggleLoadingBlock(false);
-
-        if (error.error instanceof ErrorEvent) {
-            console.error('An error occurred:', error.error.message);
-        } else {
-            console.error(
-                `Backend returned code ${error.status}, ` +
-                `body was: ${error.error}`);
-        }
-        return throwError(
-            'Something bad happened; please try again later.');
     }
 }

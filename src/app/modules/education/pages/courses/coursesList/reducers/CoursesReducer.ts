@@ -1,5 +1,5 @@
-import {User} from '../services/users.model';
-import {CoursesActions, CoursesActionTypes} from '../actions/CourseActions';
+import {User} from '../../../../services/auth/users.model';
+import {CoursesActions, CoursesActionTypes} from '../actions/CoursesActions';
 import {
     ActionReducerMap,
     createSelector,
@@ -7,15 +7,12 @@ import {
     ActionReducer,
     MetaReducer,
 } from '@ngrx/store';
-import {CourseItem} from '../pages/courses/courseItem/courseItem.model';
+import {CourseItem} from '../../courseItem/courseItem.model';
 
 export interface State {
     courses?: CourseItem[];
     searchValue?: string;
 }
-
-const tokenKey = 'app_token';
-
 
 const initialState: State = {
     courses: [],

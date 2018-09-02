@@ -4,7 +4,7 @@ import {CourseItem} from '../courseItem/courseItem.model';
 import {Router} from '@angular/router';
 import {debounceTime, filter} from 'rxjs/operators';
 import {Subject} from 'rxjs';
-import * as fromRoot from '../../../reducers/CourseReducer';
+import * as fromRoot from './reducers/CoursesReducer';
 import {Store} from '@ngrx/store';
 
 @Component({
@@ -15,7 +15,7 @@ import {Store} from '@ngrx/store';
 export class CoursesListComponent implements OnInit {
     public courses$;
     private searchAction = new Subject<string>();
-    private subsc;
+    private subscription;
     public courses;
 
 
@@ -34,21 +34,17 @@ export class CoursesListComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.subsc = this.courses$.subscribe((state) => {
+        this.subscription = this.courses$.subscribe((state) => {
             this.courses = state.coursesState.courses;
         });
 
         this.coursesListService.getList();
     }
 
-    //
-    // ngDoCheck() {
-    //     // this.courses = this.coursesListService.courses;
-    // }
 
     removeItem = (id: number) => {
         this.coursesListService.removeCourse(id);
-    };
+    }
 
     onLoadClick() {
         this.coursesListService.loadList();
@@ -66,7 +62,7 @@ export class CoursesListComponent implements OnInit {
     };
 
     ngOnDestroy() {
-        this.subsc.unsubscribe();
+        this.subscription.unsubscribe();
     }
 
 }

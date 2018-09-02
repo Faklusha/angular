@@ -25,8 +25,8 @@ import {AuthInterceptor} from './auth-interceptor';
 import {LoadingBlockComponent} from './general/loading-block/loading-block.component';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreModule } from '@ngrx/store';
-import {AuthReducer} from './reducers/AuthReducer';
-import {CourseReducer} from './reducers/CourseReducer';
+import {AuthReducer} from './services/auth/reducers/AuthReducer';
+import {CourseReducer} from './pages/courses/coursesList/reducers/CoursesReducer';
 
 @NgModule({
     imports: [

@@ -1,6 +1,6 @@
-import { Action } from '@ngrx/store';
-import {User} from '../services/users.model';
-import {CourseItem} from '../pages/courses/courseItem/courseItem.model';
+import {Action} from '@ngrx/store';
+import {User} from '../../../../services/auth/users.model';
+import {CourseItem} from '../../courseItem/courseItem.model';
 
 export enum CoursesActionTypes {
     addCourse = '[Courses] Add course',
@@ -14,24 +14,28 @@ export enum CoursesActionTypes {
 
 export class RemoveCourse implements Action {
     readonly type = CoursesActionTypes.removeCourse;
-    constructor(public id: number ) {
+
+    constructor(public id: number) {
     }
 }
 
 export class LoadCourses implements Action {
     readonly type = CoursesActionTypes.loadCourses;
-    constructor(public courses?: CourseItem[] ) {
+
+    constructor(public courses?: CourseItem[]) {
     }
 }
 
 export class UpdateCourses implements Action {
     readonly type = CoursesActionTypes.updateCourses;
-    constructor(public courses?: CourseItem[] ) {
+
+    constructor(public courses?: CourseItem[]) {
     }
 }
 
 export class SetSearchValue implements Action {
     readonly type = CoursesActionTypes.setSearchValue;
+
     constructor(public value?: string) {
     }
 }

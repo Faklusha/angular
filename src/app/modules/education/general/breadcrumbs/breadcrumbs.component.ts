@@ -1,9 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {CoursesListService} from '../../pages/courses/coursesList/coursesList.service';
 import {CourseItem} from '../../pages/courses/courseItem/courseItem.model';
 import {Store} from '@ngrx/store';
-import * as fromRoot from '../../reducers/CourseReducer';
+import * as fromRoot from '../../pages/courses/coursesList/reducers/CoursesReducer';
 
 @Component({
     selector: 'app-breadcrumbs',
@@ -13,20 +12,22 @@ import * as fromRoot from '../../reducers/CourseReducer';
 export class BreadcrumbsComponent implements OnInit {
     public id: string;
     public item?: string;
-    private subsc;
-    public courses;
+    public courses: CourseItem[];
     private courses$;
-    constructor(private route: ActivatedRoute, private coursesListService: CoursesListService,  private store: Store<fromRoot.State>){
+    private subsciption;
+
+    constructor(private route: ActivatedRoute,
+                private store: Store<fromRoot.State>) {
         this.courses$ = this.store.select(fromRoot.getCourses);
     }
 
 
     ngOnInit() {
-this.route.params.subscribe((data) => {
+        this.route.params.subscribe((data) => {
             this.id = data['id'];
         });
 
-        this.subsc = this.courses$.subscribe((state) => {
+        this.subsciption = this.courses$.subscribe((state) => {
             this.courses = state.coursesState.courses;
         });
 
@@ -48,7 +49,7 @@ this.route.params.subscribe((data) => {
     }
 
     ngOnDestroy() {
-        this.subsc.unsubscribe();
+        this.subsciption.unsubscribe();
     }
 
 }
