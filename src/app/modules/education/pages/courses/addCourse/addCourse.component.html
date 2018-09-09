@@ -1,31 +1,83 @@
 <app-breadcrumbs></app-breadcrumbs>
-<div class="add__course">
+<form class="add__course" [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="add__course_item">
+        <div class="add__course_item--field">
         <div class="add__course_item--label">Title</div>
-        <input class="add__course_title--input" value={{name}} name="name" (change)="updateItem($event.target)"/>
+        <div *ngIf="name.invalid"
+             class="alert alert-danger">
+            <div *ngIf="name.errors.required && name.touched">
+                Title is required.
+            </div>
+            <div *ngIf="name.errors.maxlength">
+                Title's length should be less than 50 symbols.
+            </div>
+        </div>
+        </div>
+        <input class="add__course_title--input" formControlName="name"/>
     </div>
     <div class="add__course_item">
+        <div class="add__course_item--field">
         <div class="add__course_item--label">Description</div>
-        <input class="add__course_description--input" value={{description}} name="description"
-               (change)="updateItem($event.target)"/>
+        <div *ngIf="description.invalid"
+             class="alert alert-danger">
+            <div *ngIf="description.errors.required && description.touched">
+                Description is required.
+            </div>
+            <div *ngIf="description.errors.maxlength">
+                Description's length should be less than 500 symbols.
+            </div>
+        </div>
+        </div>
+        <input class="add__course_description--input" formControlName="description"/>
     </div>
     <div class="add__course_item">
+        <div class="add__course_item--field">
         <div class="add__course_item--label">Date</div>
-        <input class="add__course_date--input" value={{date}} name="date"
-               (change)="updateItem($event.target)"/>
+        <div *ngIf="date.invalid && date.touched"
+             class="alert alert-danger">
+            <div *ngIf="date.errors.required">
+                Date is required.
+            </div>
+            <div *ngIf="date.errors.forbiddenDate">
+                Date's format should be dd/MM/yyyy
+            </div>
+        </div>
+        </div>
+        <input class="add__course_date--input" formControlName="date"/>
     </div>
     <div class="add__course_item">
+        <div class="add__course_item--field">
         <div class="add__course_item--label">Duration</div>
+        <div *ngIf="length.invalid"
+             class="alert alert-danger">
+            <div *ngIf="length.errors.required && length.touched">
+                Duration is required.
+            </div>
+            <div *ngIf="length.errors.forbiddenValue && !length.errors.required">
+                Duration value should contain only numbers
+            </div>
+        </div>
+        </div>
         <div class="add__course_duration--options">
-            <input class="add__course_duration--input"
-                   value={{length}} name="length"
-                   (change)="updateItem($event.target)"/>
-            <span class="add__course_duration--value">{{length| duration}}</span>
+            <input class="add__course_duration--input" formControlName="length"/>
+            <span class="add__course_duration--value">{{length.value| duration}}</span>
         </div>
     </div>
-    <div class="add__course_buttons">
-        <div class="add__course_button"
-             (click)="onSaveClick()">Save</div>
-        <div class="add__course_button" (click)="onCancelClick()">Cancel</div>
+    <div class="add__course_item">
+        <div class="add__course_item--field">
+            <div class="add__course_item--label">Authors</div>
+            <div *ngIf="authors.invalid"
+                 class="alert alert-danger">
+                <div *ngIf="authors.errors.forbiddenValue && authors.touched">
+At least one author should be added
+                </div>
+            </div>
+        </div>
+<app-authors class="add__course_authors" formControlName="authors" [authors]="authorsList" [selectedAuthors]="authors.value"></app-authors>
     </div>
-</div>
+
+    <div class="add__course_buttons">
+        <button class="add__course_button" [disabled]="!form.valid" type="submit">Save</button>
+        <button class="add__course_button" (click)="onCancelClick()">Cancel</button>
+    </div>
+</form>

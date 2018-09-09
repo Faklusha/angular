@@ -4,6 +4,11 @@ import {CourseItem} from '../courseItem/courseItem.model';
 import {Router, ActivatedRoute} from '@angular/router';
 import {Store} from '@ngrx/store';
 import * as fromRoot from '../coursesList/reducers/CoursesReducer';
+import {FormGroup, FormControl, Validators} from '@angular/forms';
+import {DurationValidator} from '../../../directives/duration-validator.directive';
+import {DateValidator} from '../../../directives/date-validator.directive';
+import {Author} from '../../../general/authors/author.model';
+import {AuthorValidator} from '../../../directives/author-validator.directive';
 
 @Component({
     selector: 'app-add',
@@ -13,14 +18,11 @@ import * as fromRoot from '../coursesList/reducers/CoursesReducer';
 export class AddCourseComponent implements OnInit {
     public item: CourseItem;
     public id: number;
-    public name: string;
-    public date: string;
-    public length: number;
-    public description: string;
-    public isTopRated: boolean;
     private courses$;
     private subscription;
     private courses: CourseItem[];
+    public authorsList: Author[];
+    public form;
 
     constructor(private router: Router, private route: ActivatedRoute,
                 private coursesListService: CoursesListService,
@@ -35,48 +37,90 @@ export class AddCourseComponent implements OnInit {
             this.id = Number.parseInt(data['id']);
         });
 
+        this.coursesListService.getAuthorsList();
+
         this.subscription = this.courses$.subscribe((state) => {
             this.courses = state.coursesState.courses;
+            this.authorsList =  state.coursesState.authors;
         });
 
         this.item = this.getCurrentCourse();
 
-        this.name = this.item ? this.item.name : '';
-        this.date = this.item ? this.item.date : '';
-        this.length = this.item ? this.item.length : 0;
-        this.description = this.item ? this.item.description : '';
-        this.isTopRated = this.item ? this.item.isTopRated : false;
-    }
+        let itemDate;
+        let itemAuthors;
+
+        if (this.item) {
+            itemAuthors = this.item.authors.map(author => {
+                if(author.name) {
+                    return author;
+                } else {
+                    return {
+                        id: author.id,
+                        name: `${author.firstName} ${author.lastName}`
+                    };
+                }
+            });
+            itemDate = new Date(this.item.date).toLocaleDateString().replace(/\./gi, '/');
+        } else {
+            itemDate = '';
+            itemAuthors = [];
+        }
+
+        this.form = new FormGroup({
+            name: new FormControl(this.item ? this.item.name : '', [
+                Validators.required,
+                    Validators.maxLength(50),
+                ]),
+            date: new FormControl(itemDate, [
+                Validators.required,
+                DateValidator()
+            ]),
+            length: new FormControl(this.item ? this.item.length : 0, [
+                Validators.required,
+                DurationValidator()
+            ]),
+            description: new FormControl(this.item ? this.item.description : '', [
+                Validators.required,
+                    Validators.maxLength(500),
+                ]),
+     authors: new FormControl(itemAuthors, [
+         AuthorValidator()
+     ]),
+        });
+        }
 
     getCurrentCourse() {
         return this.id && this.courses.find(course => course.id === this.id);
     }
 
-    onSaveClick = () => {
-        const newItem = {
-            id: this.id || Math.floor(Math.random() * (999 - 300)),
-            name: this.name,
-            date: this.date,
-            length: this.length,
-            description: this.description,
-            isTopRated: this.isTopRated
-        };
-        this.coursesListService.addCourse(newItem);
-        this.onCancelClick();
-    }
-
     onCancelClick = () => {
         return this.router.navigate(['courses']);
-    }
+    };
 
-    updateItem = target => {
-        if (target.name === 'length') {
-            return this.length = Number.parseInt(target.value) || 0;
-        }
-        this[target.name] = target.value;
-    }
 
     ngOnDestroy() {
         this.subscription.unsubscribe();
     }
+
+    onSubmit = () => {
+
+        const splittedDate = this.form.value.date.split('/');
+        const newDate = `${splittedDate[1]}.${splittedDate[0]}.${splittedDate[2]}`;
+        const newItem = Object.assign(this.form.value,
+            {
+                id: this.id || Math.floor(Math.random() * (999 - 300)),
+                isTopRated: this.item ? this.item.isTopRated : false,
+                date: new Date(newDate),
+            });
+
+        console.log(newItem);
+        this.coursesListService.addCourse(newItem);
+        this.onCancelClick();
+    };
+
+    get name() { return this.form.get('name'); }
+    get description() { return this.form.get('description'); }
+    get date() { return this.form.get('date'); }
+    get length() { return this.form.get('length'); }
+    get authors() { return this.form.get('authors'); }
 }

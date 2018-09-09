@@ -8,6 +8,7 @@
 
 .login-form__item {
     margin: 20px;
+    margin-bottom: 5px;
     display: flex;
     justify-content: space-between;
 }
@@ -22,6 +23,7 @@
     cursor: pointer;
     padding: 5px;
     margin: 0 5px;
+    margin-top: 10px;
 }
 
 .login-form__button:hover {
@@ -31,4 +33,13 @@
 .login {
     display: flex;
     margin: 20px;
+}
+
+.alert-danger {
+    margin: 5px 0px;
+    color: red;
+}
+
+.ng-invalid:not(form).ng-touched {
+    border: 1px solid red;
 }

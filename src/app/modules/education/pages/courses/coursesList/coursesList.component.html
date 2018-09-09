@@ -1,7 +1,7 @@
 <app-breadcrumbs></app-breadcrumbs>
 <div class="options">
     <div class="options__search search">
-        <input class="search__input" placeholder="Search" (input)="onSearchClick($event.target.value)"/>
+        <input class="search__input" placeholder="Search"  [formControl]="search" (input)="onSearchInputChange()"/>
     </div>
     <div class="options__button" (click)="onAddNewClick()">Add course</div>
 </div>

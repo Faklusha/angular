@@ -40,7 +40,7 @@ export class BreadcrumbsComponent implements OnInit {
         }
 
         const currentCourse: CourseItem = this.getCurrentCourse();
-        this.item = currentCourse.name;
+        this.item = currentCourse && currentCourse.name;
 
     }
 

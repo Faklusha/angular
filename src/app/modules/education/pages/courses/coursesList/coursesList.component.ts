@@ -6,6 +6,7 @@ import {debounceTime, filter} from 'rxjs/operators';
 import {Subject} from 'rxjs';
 import * as fromRoot from './reducers/CoursesReducer';
 import {Store} from '@ngrx/store';
+import {FormControl} from '@angular/forms';
 
 @Component({
     selector: 'app-courses',
@@ -17,6 +18,7 @@ export class CoursesListComponent implements OnInit {
     private searchAction = new Subject<string>();
     private subscription;
     public courses;
+    public search;
 
 
     constructor(private router: Router, private coursesListService: CoursesListService, private store: Store<fromRoot.State>) {
@@ -29,25 +31,28 @@ export class CoursesListComponent implements OnInit {
                 this.coursesListService.searchList(value);
             });
 
+
         this.courses$ = this.store.select(fromRoot.getCourses);
 
     }
 
     ngOnInit() {
+            this.search = new FormControl('');
+
         this.subscription = this.courses$.subscribe((state) => {
             this.courses = state.coursesState.courses;
         });
 
         this.coursesListService.getList();
-    }
+        }
 
 
     removeItem = (id: number) => {
-        this.coursesListService.removeCourse(id);
+        this.coursesListService.removeCourse(id, this.courses);
     }
 
     onLoadClick() {
-        this.coursesListService.loadList();
+      this.coursesListService.loadList(this.courses);
     }
 
     onAddNewClick(id?: number) {
@@ -57,8 +62,8 @@ export class CoursesListComponent implements OnInit {
         return this.router.navigate(['courses/new']);
     }
 
-    onSearchClick = (value?: string) => {
-        this.searchAction.next(value);
+    onSearchInputChange = () => {
+        this.searchAction.next(this.search.value);
     };
 
     ngOnDestroy() {

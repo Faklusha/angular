@@ -1,7 +1,8 @@
-import {Injectable, OnInit} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {throwError} from 'rxjs';
 import {LoadingBlockService} from '../../general/loading-block/loading-block.service';
+import {catchError} from 'rxjs/operators';
 
 
 @Injectable({
@@ -14,6 +15,19 @@ export class HttpService {
 
     constructor(private http: HttpClient,
                 private loadingBlockService: LoadingBlockService) {
+    }
+
+    public executeReq (method, query, body, cb?) {
+        this.loadingBlockService.toggleLoadingBlock(true);
+
+        const subscriber = this.http[method](query, body)
+            .pipe(
+                catchError(this.handleError)
+            ).subscribe((res) => {
+            this.loadingBlockService.toggleLoadingBlock(false);
+
+            return cb && cb(res);
+        });
     }
 
     public handleError(error: HttpErrorResponse) {

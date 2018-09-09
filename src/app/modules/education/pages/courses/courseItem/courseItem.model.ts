@@ -1,3 +1,5 @@
+import {Author} from '../../../general/authors/author.model';
+
 export class CourseItem {
     id: number;
     name: string;
@@ -5,4 +7,5 @@ export class CourseItem {
     length: number;
     description: string;
     isTopRated: boolean;
+    authors: Author[];
 }

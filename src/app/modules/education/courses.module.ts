@@ -27,13 +27,15 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreModule } from '@ngrx/store';
 import {AuthReducer} from './services/auth/reducers/AuthReducer';
 import {CourseReducer} from './pages/courses/coursesList/reducers/CoursesReducer';
+import { ReactiveFormsModule } from '@angular/forms';
+import {AuthorsComponent} from './general/authors/authors.component';
 
 @NgModule({
     imports: [
         CommonModule,
         RouterModule.forRoot(ROUTES, {useHash: true}),
         HttpClientModule,
-
+        ReactiveFormsModule,
         StoreModule.forRoot({authState: AuthReducer, coursesState: CourseReducer}),
         StoreDevtoolsModule.instrument({
             name: 'NgRx DevTools',
@@ -59,7 +61,8 @@ import {CourseReducer} from './pages/courses/coursesList/reducers/CoursesReducer
         LoginFormComponent,
         AddCourseComponent,
         NoFoundPageComponent,
-        LoadingBlockComponent
+        LoadingBlockComponent,
+        AuthorsComponent
     ],
     exports: [
         AppComponent,
@@ -73,7 +76,8 @@ import {CourseReducer} from './pages/courses/coursesList/reducers/CoursesReducer
         ConfirmationDialogComponent,
         AddCourseComponent,
         NoFoundPageComponent,
-        LoadingBlockComponent
+        LoadingBlockComponent,
+        AuthorsComponent
     ]
 })
 export class CoursesModule {

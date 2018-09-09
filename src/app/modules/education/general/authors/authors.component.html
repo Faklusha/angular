@@ -1,0 +1,10 @@
+<div class="authors" (click)="onTouchedCallback()">
+    <div *ngIf="!isEditMode" class="authors_selected-items" (click)="toggleMode(true)">
+    <div  class="authors_selected-item" *ngFor="let selectedItem of selectedItems">
+        <span>{{selectedItem.name}}</span>
+        <div class="authors_selected-item--icon" (click)="onRemoveItem($event, selectedItem.id)">x</div>
+    </div>
+    </div>
+    <input *ngIf="isEditMode" class="authors--input" (input)="onInputChange($event.target.value)"/>
+        <div class="authors_searched-item" *ngFor="let searchedItem of searchedItems" (click)="onSelectItem(searchedItem.id)">{{searchedItem.name}}</div>
+</div>

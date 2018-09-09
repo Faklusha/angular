@@ -1,0 +1,55 @@
+.authors--input {
+    width: 100%;
+    border: 1px solid black;
+    height: 40px;
+    padding: 5px 0px 5px 5px;
+}
+
+.authors_searched-item {
+    width: 50%;
+    border: 1px solid black;
+    border-top: unset;
+    text-align: start;
+    padding: 0px 5px;
+}
+
+.authors_searched-item:hover {
+ cursor: pointer;
+    color: red;
+}
+
+.authors_selected-items {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    border: 1px solid black;
+    min-height: 40px;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 5px 0px 5px 5px;
+}
+
+.authors_selected-items:hover {
+    cursor: pointer;
+}
+.authors_selected-item {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid black;
+    padding: 5px 5px;
+    margin: 5px 5px;
+}
+
+.authors_selected-item--icon {
+    border: 1px solid black;
+    font-size: 10px;
+    padding: 3px;
+    margin-left: 5px;
+    width: 10px;
+    height: 10px;
+}
+
+.authors_selected-item--icon:hover {
+    cursor: pointer;
+    color: red;
+}

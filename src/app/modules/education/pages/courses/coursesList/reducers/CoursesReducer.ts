@@ -8,14 +8,17 @@ import {
     MetaReducer,
 } from '@ngrx/store';
 import {CourseItem} from '../../courseItem/courseItem.model';
+import {Author} from '../../../../general/authors/author.model';
 
 export interface State {
     courses?: CourseItem[];
     searchValue?: string;
+    authors?: Author[];
 }
 
 const initialState: State = {
     courses: [],
+    authors: [],
     searchValue: null,
 };
 
@@ -28,26 +31,13 @@ export function CourseReducer(state: State = initialState,
                 courses: action.courses,
             };
 
-        case CoursesActionTypes.setSearchValue:
+        case CoursesActionTypes.updateAuthors:
             return {
                 ...state,
-                searchValue: action.value
+                authors: action.authors,
             };
 
-        case CoursesActionTypes.removeCourse:
-            return {
-                ...state,
-                courses: state.courses.filter(course => course.id !== action.id),
-            };
-
-        case CoursesActionTypes.loadCourses:
-            return {
-                ...state,
-                courses: state.courses.concat(action.courses),
-            };
-
-
-        default:
+            default:
             return state;
     }
 }

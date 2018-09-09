@@ -1,14 +1,28 @@
 <div class="login">
-    <div class="login-form">
+    <form class="login-form" [formGroup]="form" (ngSubmit)="onSubmit()">
         <div class="login-form__item">
             <span class="login-form__item_title">Login</span>
-            <input #loginNameInput class="login-form__item_input"/>
-        </div>
-        <div class="login-form__item">
-            <span class="login-form__item_title">Password</span>
-            <input #loginPasswordInput class="login-form__item_input"/>
-        </div>
-        <div class="login-form__button" (click)="onLogInClick(loginNameInput.value, loginPasswordInput.value)">Enter
+
+            <input formControlName="name" class="login-form__item_input"/>
+
+        </div>            <div *ngIf="name.invalid && name.touched"
+                               class="alert alert-danger">
+        <div *ngIf="name.errors.required">
+            Login is required.
         </div>
     </div>
+        <div class="login-form__item">
+            <span class="login-form__item_title">Password</span>
+
+
+            <input formControlName="password" type="password" class="login-form__item_input"/>
+
+        </div>          <div *ngIf="password.invalid && password.touched"
+                             class="alert alert-danger">
+        <div *ngIf="password.errors.required">
+            Password is required.
+        </div>
+    </div>
+        <button class="login-form__button" [disabled]="!form.valid" type="submit">Log in</button>
+    </form>
 </div>
