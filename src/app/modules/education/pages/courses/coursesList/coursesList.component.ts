@@ -37,22 +37,22 @@ export class CoursesListComponent implements OnInit {
     }
 
     ngOnInit() {
-            this.search = new FormControl('');
+        this.search = new FormControl('');
 
         this.subscription = this.courses$.subscribe((state) => {
             this.courses = state.coursesState.courses;
         });
 
         this.coursesListService.getList();
-        }
+    }
 
 
     removeItem = (id: number) => {
         this.coursesListService.removeCourse(id, this.courses);
-    }
+    };
 
     onLoadClick() {
-      this.coursesListService.loadList(this.courses);
+        this.coursesListService.loadList(this.courses);
     }
 
     onAddNewClick(id?: number) {

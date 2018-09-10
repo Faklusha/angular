@@ -1,7 +1,7 @@
 import {Action} from '@ngrx/store';
 import {User} from '../../../../services/auth/users.model';
 import {CourseItem} from '../../courseItem/courseItem.model';
-import {Author} from '../../../../general/authors/author.model';
+import {Author} from '../../addCourse/authors.model';
 
 export enum CoursesActionTypes {
     updateCourses = '[Courses] Update courses',
@@ -21,7 +21,6 @@ export class UpdateAuthors implements Action {
     constructor(public authors?: Author[]) {
     }
 }
-
 
 
 export type CoursesActions = UpdateCourses | UpdateAuthors;

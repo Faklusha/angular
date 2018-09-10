@@ -12,12 +12,12 @@
 
 .add__course_item--label {
     margin: 5px 0px;
-font-weight: bold;
+    font-weight: bold;
 }
 
 .add__course_item--field {
-display: flex;
-flex-direction: row;
+    display: flex;
+    flex-direction: row;
 }
 
 .add__course_title--input {
@@ -70,7 +70,7 @@ flex-direction: row;
 }
 
 .add__course_authors {
-width: 100%;
+    width: 100%;
 }
 
 .alert-danger {

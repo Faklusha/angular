@@ -7,7 +7,7 @@ import * as fromRoot from '../coursesList/reducers/CoursesReducer';
 import {FormGroup, FormControl, Validators} from '@angular/forms';
 import {DurationValidator} from '../../../directives/duration-validator.directive';
 import {DateValidator} from '../../../directives/date-validator.directive';
-import {Author} from '../../../general/authors/author.model';
+import {Author} from './authors.model';
 import {AuthorValidator} from '../../../directives/author-validator.directive';
 
 @Component({
@@ -41,7 +41,7 @@ export class AddCourseComponent implements OnInit {
 
         this.subscription = this.courses$.subscribe((state) => {
             this.courses = state.coursesState.courses;
-            this.authorsList =  state.coursesState.authors;
+            this.authorsList = state.coursesState.authors;
         });
 
         this.item = this.getCurrentCourse();
@@ -51,7 +51,7 @@ export class AddCourseComponent implements OnInit {
 
         if (this.item) {
             itemAuthors = this.item.authors.map(author => {
-                if(author.name) {
+                if (author.name) {
                     return author;
                 } else {
                     return {
@@ -69,8 +69,8 @@ export class AddCourseComponent implements OnInit {
         this.form = new FormGroup({
             name: new FormControl(this.item ? this.item.name : '', [
                 Validators.required,
-                    Validators.maxLength(50),
-                ]),
+                Validators.maxLength(50),
+            ]),
             date: new FormControl(itemDate, [
                 Validators.required,
                 DateValidator()
@@ -81,13 +81,13 @@ export class AddCourseComponent implements OnInit {
             ]),
             description: new FormControl(this.item ? this.item.description : '', [
                 Validators.required,
-                    Validators.maxLength(500),
-                ]),
-     authors: new FormControl(itemAuthors, [
-         AuthorValidator()
-     ]),
+                Validators.maxLength(500),
+            ]),
+            authors: new FormControl(itemAuthors, [
+                AuthorValidator()
+            ]),
         });
-        }
+    }
 
     getCurrentCourse() {
         return this.id && this.courses.find(course => course.id === this.id);
@@ -116,11 +116,25 @@ export class AddCourseComponent implements OnInit {
         console.log(newItem);
         this.coursesListService.addCourse(newItem);
         this.onCancelClick();
-    };
+    }
 
-    get name() { return this.form.get('name'); }
-    get description() { return this.form.get('description'); }
-    get date() { return this.form.get('date'); }
-    get length() { return this.form.get('length'); }
-    get authors() { return this.form.get('authors'); }
+    get name() {
+        return this.form.get('name');
+    }
+
+    get description() {
+        return this.form.get('description');
+    }
+
+    get date() {
+        return this.form.get('date');
+    }
+
+    get length() {
+        return this.form.get('length');
+    }
+
+    get authors() {
+        return this.form.get('authors');
+    }
 }

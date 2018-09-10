@@ -2,61 +2,61 @@
 <form class="add__course" [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="add__course_item">
         <div class="add__course_item--field">
-        <div class="add__course_item--label">Title</div>
-        <div *ngIf="name.invalid"
-             class="alert alert-danger">
-            <div *ngIf="name.errors.required && name.touched">
-                Title is required.
+            <div class="add__course_item--label">Title</div>
+            <div *ngIf="name.invalid"
+                 class="alert alert-danger">
+                <div *ngIf="name.errors.required && name.touched">
+                    Title is required.
+                </div>
+                <div *ngIf="name.errors.maxlength">
+                    Title's length should be less than 50 symbols.
+                </div>
             </div>
-            <div *ngIf="name.errors.maxlength">
-                Title's length should be less than 50 symbols.
-            </div>
-        </div>
         </div>
         <input class="add__course_title--input" formControlName="name"/>
     </div>
     <div class="add__course_item">
         <div class="add__course_item--field">
-        <div class="add__course_item--label">Description</div>
-        <div *ngIf="description.invalid"
-             class="alert alert-danger">
-            <div *ngIf="description.errors.required && description.touched">
-                Description is required.
+            <div class="add__course_item--label">Description</div>
+            <div *ngIf="description.invalid"
+                 class="alert alert-danger">
+                <div *ngIf="description.errors.required && description.touched">
+                    Description is required.
+                </div>
+                <div *ngIf="description.errors.maxlength">
+                    Description's length should be less than 500 symbols.
+                </div>
             </div>
-            <div *ngIf="description.errors.maxlength">
-                Description's length should be less than 500 symbols.
-            </div>
-        </div>
         </div>
         <input class="add__course_description--input" formControlName="description"/>
     </div>
     <div class="add__course_item">
         <div class="add__course_item--field">
-        <div class="add__course_item--label">Date</div>
-        <div *ngIf="date.invalid && date.touched"
-             class="alert alert-danger">
-            <div *ngIf="date.errors.required">
-                Date is required.
+            <div class="add__course_item--label">Date</div>
+            <div *ngIf="date.invalid && date.touched"
+                 class="alert alert-danger">
+                <div *ngIf="date.errors.required">
+                    Date is required.
+                </div>
+                <div *ngIf="date.errors.forbiddenDate">
+                    Date's format should be dd/MM/yyyy
+                </div>
             </div>
-            <div *ngIf="date.errors.forbiddenDate">
-                Date's format should be dd/MM/yyyy
-            </div>
-        </div>
         </div>
         <input class="add__course_date--input" formControlName="date"/>
     </div>
     <div class="add__course_item">
         <div class="add__course_item--field">
-        <div class="add__course_item--label">Duration</div>
-        <div *ngIf="length.invalid"
-             class="alert alert-danger">
-            <div *ngIf="length.errors.required && length.touched">
-                Duration is required.
+            <div class="add__course_item--label">Duration</div>
+            <div *ngIf="length.invalid"
+                 class="alert alert-danger">
+                <div *ngIf="length.errors.required && length.touched">
+                    Duration is required.
+                </div>
+                <div *ngIf="length.errors.forbiddenValue && !length.errors.required">
+                    Duration value should contain only numbers
+                </div>
             </div>
-            <div *ngIf="length.errors.forbiddenValue && !length.errors.required">
-                Duration value should contain only numbers
-            </div>
-        </div>
         </div>
         <div class="add__course_duration--options">
             <input class="add__course_duration--input" formControlName="length"/>
@@ -69,11 +69,12 @@
             <div *ngIf="authors.invalid"
                  class="alert alert-danger">
                 <div *ngIf="authors.errors.forbiddenValue && authors.touched">
-At least one author should be added
+                    At least one author should be added
                 </div>
             </div>
         </div>
-<app-authors class="add__course_authors" formControlName="authors" [authors]="authorsList" [selectedAuthors]="authors.value"></app-authors>
+        <app-input-select class="add__course_authors" formControlName="authors" [inputList]="authorsList"
+                          [inputSelectedList]="authors.value"></app-input-select>
     </div>
 
     <div class="add__course_buttons">

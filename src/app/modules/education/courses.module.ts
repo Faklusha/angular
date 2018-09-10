@@ -20,15 +20,15 @@ import {AddCourseComponent} from './pages/courses/addCourse/addCourse.component'
 import {NoFoundPageComponent} from './pages/noFoundPage/noFoundPage.component';
 import {ROUTES} from './courses.routes';
 import {CanActivateGuard} from './guards/canActivateGuard';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {AuthInterceptor} from './auth-interceptor';
 import {LoadingBlockComponent} from './general/loading-block/loading-block.component';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { StoreModule } from '@ngrx/store';
+import {StoreDevtoolsModule} from '@ngrx/store-devtools';
+import {StoreModule} from '@ngrx/store';
 import {AuthReducer} from './services/auth/reducers/AuthReducer';
 import {CourseReducer} from './pages/courses/coursesList/reducers/CoursesReducer';
-import { ReactiveFormsModule } from '@angular/forms';
-import {AuthorsComponent} from './general/authors/authors.component';
+import {ReactiveFormsModule} from '@angular/forms';
+import {InputSelectComponent} from './general/authors/input-select.component';
 
 @NgModule({
     imports: [
@@ -42,7 +42,7 @@ import {AuthorsComponent} from './general/authors/authors.component';
         }),
     ],
     providers: [CanActivateGuard,
-        { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+        {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
     ],
     declarations: [
         AppComponent,
@@ -62,7 +62,7 @@ import {AuthorsComponent} from './general/authors/authors.component';
         AddCourseComponent,
         NoFoundPageComponent,
         LoadingBlockComponent,
-        AuthorsComponent
+        InputSelectComponent
     ],
     exports: [
         AppComponent,
@@ -77,7 +77,7 @@ import {AuthorsComponent} from './general/authors/authors.component';
         AddCourseComponent,
         NoFoundPageComponent,
         LoadingBlockComponent,
-        AuthorsComponent
+        InputSelectComponent
     ]
 })
 export class CoursesModule {

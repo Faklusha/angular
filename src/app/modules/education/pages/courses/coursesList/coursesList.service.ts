@@ -4,7 +4,7 @@ import * as fromRoot from './reducers/CoursesReducer';
 import {Store} from '@ngrx/store';
 import * as CoursesActions from './actions/CoursesActions';
 import {HttpService} from '../../../services/http/http.service';
-import {Author} from '../../../general/authors/author.model';
+import {Author} from '../addCourse/authors.model';
 
 @Injectable({
     providedIn: 'root'

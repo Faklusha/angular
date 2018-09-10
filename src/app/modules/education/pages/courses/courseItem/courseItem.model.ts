@@ -1,4 +1,4 @@
-import {Author} from '../../../general/authors/author.model';
+import {Author} from '../addCourse/authors.model';
 
 export class CourseItem {
     id: number;

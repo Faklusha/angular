@@ -8,7 +8,7 @@ import {
     MetaReducer,
 } from '@ngrx/store';
 import {CourseItem} from '../../courseItem/courseItem.model';
-import {Author} from '../../../../general/authors/author.model';
+import {Author} from '../../addCourse/authors.model';
 
 export interface State {
     courses?: CourseItem[];
@@ -37,7 +37,7 @@ export function CourseReducer(state: State = initialState,
                 authors: action.authors,
             };
 
-            default:
+        default:
             return state;
     }
 }

@@ -17,17 +17,17 @@ export class HttpService {
                 private loadingBlockService: LoadingBlockService) {
     }
 
-    public executeReq (method, query, body, cb?) {
+    public executeReq(method, query, body, cb?) {
         this.loadingBlockService.toggleLoadingBlock(true);
 
         const subscriber = this.http[method](query, body)
             .pipe(
                 catchError(this.handleError)
             ).subscribe((res) => {
-            this.loadingBlockService.toggleLoadingBlock(false);
+                this.loadingBlockService.toggleLoadingBlock(false);
 
-            return cb && cb(res);
-        });
+                return cb && cb(res);
+            });
     }
 
     public handleError(error: HttpErrorResponse) {

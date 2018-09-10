@@ -14,7 +14,7 @@
 }
 
 .authors_searched-item:hover {
- cursor: pointer;
+    cursor: pointer;
     color: red;
 }
 
@@ -32,6 +32,7 @@
 .authors_selected-items:hover {
     cursor: pointer;
 }
+
 .authors_selected-item {
     display: flex;
     flex-direction: row;
